@@ -12,13 +12,72 @@
   <script src="assets/tw-config.js"></script>
   <link rel="stylesheet" href="assets/site.css">
   <style>
-    .stack { position: relative; aspect-ratio: 1 / 1.05; }
-    .stack .polaroid { position: absolute; width: 58%; }
-    .stack .p1 { left: 2%; top: 8%; transform: rotate(-7deg); z-index: 1; }
-    .stack .p2 { right: 0; top: 0; transform: rotate(5deg); z-index: 2; }
-    .stack .p3 { left: 22%; bottom: 0; transform: rotate(-1.5deg); z-index: 3; width: 54%; }
-    .stack .polaroid:hover { transform: rotate(0) translateY(-8px) scale(1.03); z-index: 5; }
-    .float-count { position: absolute; z-index: 6; right: -2%; bottom: 6%; width: min(290px, 70%); }
+    /* ---------- Hero ---------- */
+    .hero { position: relative; isolation: isolate; overflow: hidden; margin-top: -84px; display: flex; align-items: flex-start; }
+    .hero-media { position: absolute; left: 0; right: 0; bottom: 0; height: 540px; z-index: -1; overflow: hidden; }
+    .hero-media img {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 64% 70%;
+      animation: settle 2.6s var(--ease-out) both;
+    }
+    /* warm colour treatment (multiply) so the photo sits in the brand palette */
+    .hero-media::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(160deg, rgba(217,164,65,.22), rgba(181,83,47,.10) 60%, rgba(31,58,46,.16)); mix-blend-mode: multiply; }
+    /* paper fades: photo dissolves into the page instead of ending on a hard edge */
+    .hero-media::after {
+      content: ""; position: absolute; inset: 0; z-index: 2;
+      background: linear-gradient(to bottom, var(--paper) 0%, rgba(246,239,227,.55) 14%, rgba(246,239,227,0) 34%, rgba(246,239,227,0) 74%, var(--paper) 100%);
+    }
+    @keyframes settle { from { transform: scale(1.07); opacity: 0; } to { transform: none; opacity: 1; } }
+    .hero-content { position: relative; padding-top: calc(84px + var(--s-6)); padding-bottom: 420px; }
+    .hero h1 { font-size: clamp(3.1rem, 12vw, 6.8rem); margin-top: var(--s-4); max-width: 9.5ch; }
+    .hero .lede { margin-top: var(--s-4); max-width: 30rem; color: #4A4137; }
+    .hero-ghost { background: rgba(246,239,227,.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+
+    @media (min-width: 1024px) {
+      .hero { min-height: min(100svh, 940px); align-items: center; }
+      .hero-media { top: 0; height: auto; left: 22%; }
+      .hero-media img { object-position: 60% 62%; }
+      .hero-media::after {
+        background:
+          linear-gradient(to right, var(--paper) 0%, rgba(246,239,227,.82) 9%, rgba(246,239,227,.35) 20%, rgba(246,239,227,0) 32%),
+          linear-gradient(to bottom, rgba(246,239,227,0) 78%, var(--paper) 100%);
+      }
+      .hero-content { padding-top: calc(84px + var(--s-5)); padding-bottom: calc(var(--s-8) + var(--s-5)); }
+      .hero .lede { max-width: 27rem; }
+    }
+
+    /* At-a-glance bar */
+    .hero-bar-wrap { position: relative; z-index: 3; margin-top: calc(-1 * var(--s-7)); margin-bottom: var(--s-7); }
+    .hero-bar {
+      display: grid; grid-template-columns: 1fr; gap: 0; border-radius: 24px; padding: var(--s-2);
+      background: rgba(251,247,240,.9); backdrop-filter: blur(16px) saturate(1.2); -webkit-backdrop-filter: blur(16px) saturate(1.2);
+      box-shadow: var(--sh-3), inset 0 0 0 1px rgba(255,255,255,.6);
+    }
+    .hb-item { display: flex; align-items: center; gap: var(--s-3); padding: var(--s-3) var(--s-3); }
+    .hb-item + .hb-item { border-top: 1px solid rgba(31,58,46,.09); }
+    .hb-label { font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; font-weight: 700; color: var(--clay); }
+    .hb-value { font-family: 'Fraunces', serif; font-size: 1.2rem; letter-spacing: -0.02em; line-height: 1.25; margin-top: .1rem; }
+    .hb-date { display: grid; place-items: center; width: 52px; height: 56px; flex: none; border-radius: 14px; background: var(--clay); color: var(--paper); line-height: 1; box-shadow: 0 6px 14px -6px rgba(181,83,47,.6); }
+    .hb-date small { font-size: .6rem; letter-spacing: .18em; font-weight: 700; margin-top: .4rem; }
+    .hb-date b { font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.6rem; margin-bottom: .35rem; }
+    .hb-icon { flex: none; width: 52px; height: 52px; padding: 14px; border-radius: 14px; background: rgba(31,58,46,.07); color: var(--leaf); }
+    .hb-count { display: flex; align-items: baseline; gap: .15rem; margin-top: .1rem; font-family: 'Fraunces', serif; }
+    .hb-count b { font-weight: 500; font-size: 1.6rem; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; line-height: 1.1; }
+    .hb-count span { font-size: .85rem; color: var(--ink-soft); margin-right: .55rem; font-style: italic; }
+    .hb-cta .btn { width: 100%; justify-content: center; }
+    @media (min-width: 640px) {
+      .hero-bar { grid-template-columns: 1fr 1fr; }
+      .hb-item + .hb-item { border-top: 0; }
+      .hb-item:nth-child(n+3) { border-top: 1px solid rgba(31,58,46,.09); }
+      .hb-item:nth-child(even) { border-left: 1px solid rgba(31,58,46,.09); }
+    }
+    @media (min-width: 1100px) {
+      .hero-bar { grid-template-columns: 1.1fr 1.2fr 1fr auto; padding: var(--s-2) var(--s-2) var(--s-2) var(--s-3); border-radius: 999px; }
+      .hb-item:nth-child(n+3) { border-top: 0; }
+      .hb-item + .hb-item { border-left: 1px solid rgba(31,58,46,.09); padding-left: var(--s-4); }
+      .hb-cta { border-left: 0 !important; }
+      .hb-cta .btn { width: auto; padding: 1.05rem 1.6rem; }
+    }
+    @media (prefers-reduced-motion: reduce) { .hero-media img { animation: none; } }
     .braid path { stroke-dasharray: 6 0; }
     .root-card { transition: transform .6s var(--ease-spring); }
     .root-card:hover { transform: translateY(-6px); }
@@ -39,62 +98,53 @@
 
   <main>
     <!-- HERO -->
-    <section class="relative isolate" style="padding-block: var(--s-7) var(--s-8)">
-      <div class="hero-bg"></div>
-      <div class="wrap grid items-center gap-16 lg:grid-cols-[1.1fr_1fr]">
-        <div>
-          <p class="eyebrow rise d1">Rooted before the records began</p>
-          <h1 class="rise d2" style="font-size: clamp(3rem, 8.5vw, 6.4rem); margin-top: var(--s-4)">
-            Welcome home, <em>family.</em>
-          </h1>
-          <p class="lede rise d3" style="margin-top: var(--s-4)">
-            This is the gathering place for the Greggs, Johnson and Brown family — three lines woven
-            together across generations. Come for the reunion, stay for the stories, and leave a
-            memory for the ones who come after us.
-          </p>
-          <div class="flex flex-wrap gap-3 rise d4" style="margin-top: var(--s-5)">
-            <a class="btn btn-clay" href="events.html#rsvp">RSVP for 2027
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </a>
-            <a class="btn btn-ghost" href="story.html">Read our story</a>
-          </div>
-          <div class="flex items-center gap-4 rise d5" style="margin-top: var(--s-6)">
-            <div class="flex -space-x-3">
-              <img class="h-11 w-11 rounded-full ring-4 ring-paper object-cover" src="https://placehold.co/88x88/2C5140/E6D6BE?text=+" alt="">
-              <img class="h-11 w-11 rounded-full ring-4 ring-paper object-cover" src="https://placehold.co/88x88/B5532F/F6EFE3?text=+" alt="">
-              <img class="h-11 w-11 rounded-full ring-4 ring-paper object-cover" src="https://placehold.co/88x88/D9A441/1F3A2E?text=+" alt="">
-              <span class="grid h-11 w-11 place-items-center rounded-full bg-leaf text-paper text-xs font-bold ring-4 ring-paper">+148</span>
-            </div>
-            <p style="font-size:.95rem;color:var(--ink-soft);line-height:1.4"><b style="color:var(--ink)">Cousins already counted in.</b><br>Add your household to the list.</p>
-          </div>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-media" aria-hidden="true">
+        <img src="assets/images/hero-tree.jpg" alt="" fetchpriority="high">
+      </div>
+      <div class="wrap hero-content">
+        <p class="eyebrow rise d1">Rooted before the records began</p>
+        <h1 id="hero-title" class="rise d2">Welcome home, <em>family.</em></h1>
+        <p class="lede rise d3">Three family lines — Greggs, Johnson and Brown — grown from one deep root. Come for the reunion, stay for the stories, and leave a memory for the ones who come after us.</p>
+        <div class="flex flex-wrap gap-3 rise d4" style="margin-top: var(--s-5)">
+          <a class="btn btn-clay" href="events.html#rsvp">RSVP for 2027
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn btn-ghost hero-ghost" href="story.html">Read our story</a>
         </div>
-
-        <div class="relative rise d3">
-          <div class="stack">
-            <figure class="polaroid p1">
-              <div class="photo" style="aspect-ratio:4/5"><img src="https://placehold.co/600x750/2C5140/E6D6BE?text=Grandparents&font=playfair-display" alt="Placeholder: family elders portrait"></div>
-              <figcaption>The elders, Sunday best</figcaption>
-            </figure>
-            <figure class="polaroid p2">
-              <div class="photo" style="aspect-ratio:4/5"><img src="https://placehold.co/600x750/B5532F/F6EFE3?text=Cousins&font=playfair-display" alt="Placeholder: cousins at a past reunion"></div>
-              <figcaption>Cousins, every summer</figcaption>
-            </figure>
-            <figure class="polaroid p3">
-              <div class="photo" style="aspect-ratio:5/4"><img src="https://placehold.co/700x560/1F3A2E/D9A441?text=The+Whole+Family&font=playfair-display" alt="Placeholder: whole-family group photo"></div>
-              <figcaption>All of us, one frame</figcaption>
-            </figure>
+        <div class="flex items-center gap-4 rise d5" style="margin-top: var(--s-5)">
+          <div class="flex -space-x-3">
+            <img class="h-10 w-10 rounded-full ring-4 ring-paper object-cover" src="https://placehold.co/80x80/2C5140/E6D6BE?text=+" alt="">
+            <img class="h-10 w-10 rounded-full ring-4 ring-paper object-cover" src="https://placehold.co/80x80/B5532F/F6EFE3?text=+" alt="">
+            <img class="h-10 w-10 rounded-full ring-4 ring-paper object-cover" src="https://placehold.co/80x80/D9A441/1F3A2E?text=+" alt="">
+            <span class="grid h-10 w-10 place-items-center rounded-full bg-leaf text-paper text-xs font-bold ring-4 ring-paper">+148</span>
           </div>
-          <div class="float-count card card-float hidden sm:block" style="padding: var(--s-3) var(--s-4); background: var(--leaf); color: var(--paper)">
-            <p style="font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--gold)">Reunion begins in</p>
-            <div style="display:flex;gap:var(--s-3);margin-top:.4rem;font-family:Fraunces,serif;line-height:1">
-              <div><b data-count="d" style="font-size:2rem;font-weight:500">--</b><span style="display:block;font-size:.65rem;opacity:.7;font-family:Hanken Grotesk;letter-spacing:.1em">DAYS</span></div>
-              <div><b data-count="h" style="font-size:2rem;font-weight:500">--</b><span style="display:block;font-size:.65rem;opacity:.7;font-family:Hanken Grotesk;letter-spacing:.1em">HRS</span></div>
-              <div><b data-count="m" style="font-size:2rem;font-weight:500">--</b><span style="display:block;font-size:.65rem;opacity:.7;font-family:Hanken Grotesk;letter-spacing:.1em">MIN</span></div>
-            </div>
-          </div>
+          <p style="font-size:.92rem;color:var(--ink-soft);line-height:1.4"><b style="color:var(--ink)">Cousins already counted in.</b><br>Add your household to the list.</p>
         </div>
       </div>
     </section>
+
+    <!-- Reunion at-a-glance bar (floats over the hero's bottom edge) -->
+    <div class="wrap hero-bar-wrap">
+      <div class="hero-bar rise d5">
+        <div class="hb-item">
+          <span class="hb-date"><small>JUL</small><b>16</b></span>
+          <div><p class="hb-label">When</p><p class="hb-value">July 16 – 18, 2027</p></div>
+        </div>
+        <div class="hb-item">
+          <svg class="hb-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="9.5" r="2.5" stroke="currentColor" stroke-width="1.7"/></svg>
+          <div><p class="hb-label">Where</p><p class="hb-value">[Venue] · [City, State]</p></div>
+        </div>
+        <div class="hb-item">
+          <div><p class="hb-label">Counting down</p>
+            <p class="hb-count"><b data-count="d">--</b><span>d</span><b data-count="h">--</b><span>h</span><b data-count="m">--</b><span>m</span></p></div>
+        </div>
+        <div class="hb-item hb-cta">
+          <a class="btn" href="events.html">Full schedule
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+    </div>
 
     <div class="quilt"></div>
 
