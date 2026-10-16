@@ -142,6 +142,11 @@ img { display: block; max-width: 100%; }
 }
 .mobile-menu.open { opacity: 1; transform: none; pointer-events: auto; }
 .mobile-menu .nav-link { font-size: 1.125rem; padding: .85rem 1rem; }
+@media (max-width: 419px) {
+  .brand-name { font-size: .86rem; white-space: nowrap; }
+  .brand .seal { width: 40px; height: 40px; }
+  .brand { gap: .55rem; }
+}
 @media (min-width: 900px) {
   .nav-links { display: flex; }
   .menu-toggle, .mobile-menu { display: none; }

@@ -69,17 +69,87 @@
     .bond::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; background: var(--gold); }
     .bond span { position: relative; width: 18px; height: 18px; border-radius: 50%; background: var(--paper-2); box-shadow: inset 0 0 0 2px var(--gold); }
 
-    .person { width: 152px; text-align: left; overflow: hidden; }
-    @media (min-width: 640px) { .person { width: 184px; } }
-    .person .photo { border-radius: var(--radius) var(--radius) 0 0; aspect-ratio: 4 / 5; }
-    .person .photo::after { background: linear-gradient(to top, rgba(0,0,0,.35), transparent 50%); }
-    .person-body { padding: var(--s-2) var(--s-3) var(--s-3); }
-    .person h4 { margin: 0; font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.08rem; letter-spacing: -0.02em; line-height: 1.2; }
-    .person .place { font-size: .78rem; color: var(--ink-soft); margin-top: .15rem; }
-    .person dl { margin: var(--s-2) 0 0; display: grid; grid-template-columns: auto 1fr; gap: .15rem .6rem; font-size: .82rem; line-height: 1.45; }
-    .person dt { font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; color: var(--clay); padding-top: .15rem; }
-    .person dd { margin: 0; color: var(--ink); font-variant-numeric: tabular-nums; }
+    /* Person card — full-bleed portrait, name over a dark fade, kebab "more" icon */
+    .person {
+      position: relative; display: block; width: min(152px, calc((100vw - 118px) / 2)); aspect-ratio: 360 / 455; overflow: hidden; isolation: isolate;
+      border-radius: 14px; background: var(--leaf); cursor: pointer; text-align: left;
+      box-shadow: var(--sh-2);
+      transition: transform .5s var(--ease-spring);
+    }
+    .person img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--ease-out); }
+    .person::after { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.35) 32%, rgba(0,0,0,0) 58%); pointer-events: none; }
+    .person-name {
+      position: absolute; left: 7%; right: 22%; bottom: 7%; z-index: 2; margin: 0; color: #fff;
+      font-family: 'Hanken Grotesk', sans-serif; font-weight: 700; letter-spacing: -0.025em; line-height: 1.08;
+      font-size: 1.05rem; text-shadow: 0 1px 12px rgba(0,0,0,.25);
+    }
+    .person-name span { display: block; overflow-wrap: anywhere; }
+    .person-kebab {
+      position: absolute; right: 6%; bottom: 9%; z-index: 2; display: grid; place-items: center; width: 26px; height: 32px; border-radius: 999px; color: #fff;
+      transition: transform .45s var(--ease-spring);
+    }
+    .person:hover { transform: translateY(-5px); }
+    .person:hover img { transform: scale(1.05); }
+    .person:hover .person-kebab { transform: scale(1.15); }
+    .person:active { transform: translateY(-1px) scale(.98); }
+    .person:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+
+    /* ---------- Person detail dialog ---------- */
+    .person-dialog {
+      padding: 0; border: 0; border-radius: 28px; width: min(880px, calc(100vw - 32px)); max-width: none; max-height: calc(100dvh - 32px);
+      background: #FBF7F0; color: var(--ink); box-shadow: var(--sh-3); overflow: hidden;
+    }
+    .person-dialog[open] { animation: pop .55s var(--ease-spring); }
+    .person-dialog::backdrop { background: rgba(20,40,32,.62); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+    @keyframes pop { from { opacity: 0; transform: translateY(18px) scale(.97); } to { opacity: 1; transform: none; } }
+    .pd-grid { display: grid; max-height: calc(100dvh - 32px); }
+    .pd-photo { position: relative; height: 240px; border-radius: 0; }
+    .pd-photo img { object-position: center 30%; }
+    .pd-body { padding: var(--s-5) var(--s-4) var(--s-4); overflow-y: auto; }
+    .pd-name { font-size: clamp(2rem, 5vw, 2.8rem); margin-top: var(--s-2); }
+    .pd-life { font-family: 'Fraunces', serif; font-style: italic; font-size: 1.15rem; color: var(--clay); margin-top: .35rem; }
+    .pd-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: var(--s-2); margin: var(--s-4) 0 0; }
+    .pd-facts div { padding: var(--s-2) var(--s-3); border-radius: 14px; background: var(--paper-2); }
+    .pd-facts dt { font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; color: var(--clay); }
+    .pd-facts dd { margin: .15rem 0 0; font-family: 'Fraunces', serif; font-size: 1.05rem; }
+    .pd-bio { margin-top: var(--s-4); display: grid; gap: var(--s-2); color: #4A4137; }
+    .pd-bio.empty { padding: var(--s-3) var(--s-4); border-radius: 16px; border: 1.5px dashed rgba(31,58,46,.22); color: var(--ink-soft); }
+    .pd-spouse {
+      display: flex; align-items: center; gap: var(--s-2); width: 100%; margin-top: var(--s-4); padding: var(--s-2); border: 0; border-radius: 16px; cursor: pointer; text-align: left;
+      background: transparent; font: inherit; color: inherit; box-shadow: inset 0 0 0 1.5px rgba(31,58,46,.14);
+      transition: transform .45s var(--ease-spring);
+    }
+    .pd-spouse:hover { box-shadow: inset 0 0 0 1.5px var(--leaf); }
+    .pd-spouse:hover svg { transform: translateX(3px); }
+    .pd-spouse svg { transition: transform .45s var(--ease-spring); }
+    .pd-spouse:active { transform: scale(.98); }
+    .pd-spouse:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+    .pd-spouse img { width: 44px; height: 44px; border-radius: 12px; object-fit: cover; }
+    .pd-close { position: absolute; top: 14px; right: 14px; z-index: 5; background: rgba(246,239,227,.92); color: var(--leaf); box-shadow: var(--sh-1); }
+    .pd-close:hover { background: var(--clay); color: var(--paper); }
+    @media (min-width: 720px) {
+      .pd-grid { grid-template-columns: 320px 1fr; }
+      .pd-photo { height: auto; min-height: 100%; }
+      .pd-body { padding: var(--s-6) var(--s-5) var(--s-5); }
+    }
+    /* phones: slide up as a bottom sheet */
+    @media (max-width: 719px) {
+      .person-dialog { width: 100vw; margin: auto 0 0; border-radius: 26px 26px 0 0; max-height: 90dvh; }
+      .pd-grid { max-height: 90dvh; overflow-y: auto; }
+      .pd-body { overflow: visible; }
+    }
+    @media (min-width: 640px) { .person { width: 200px; } .person-name { font-size: 1.45rem; } }
+    @media (min-width: 1024px) { .person { width: 220px; } .person-name { font-size: 1.6rem; } }
     .living { display: inline-block; font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--leaf); background: rgba(31,58,46,.09); padding: .15rem .5rem; border-radius: 999px; }
+    /* very small phones: stack couples vertically */
+    @media (max-width: 359px) {
+      .unit { flex-direction: column; align-items: center; }
+      .bond { width: auto; height: 26px; }
+      .bond::before { left: 50%; right: auto; top: 0; bottom: 0; width: 2px; height: auto; margin-left: -1px; }
+      .person { width: 210px; }
+      .person-name { font-size: 1.5rem; }
+      .tree { padding-inline: var(--s-3); }
+    }
     .tree-in { animation: rise .7s var(--ease-out) both; }
   </style>
 </head>
@@ -170,6 +240,12 @@
     <figure><img alt=""><figcaption></figcaption></figure>
   </div>
 
+  <dialog class="person-dialog" id="person-dialog" aria-labelledby="pd-name">
+    <button class="icon-btn pd-close" data-close aria-label="Close">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 4l10 10M14 4 4 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    <div class="pd-grid" id="pd-content"></div>
+  </dialog>
+
   <footer id="site-footer"></footer>
   <script src="assets/site.js"></script>
   <script src="assets/ancestors.js"></script>
@@ -195,23 +271,74 @@
     const initials = n => n.replace(/[\[\]]/g, '').split(/\s+/).filter(Boolean).map(w => w[0]).slice(0, 2).join('').toUpperCase() || '?';
     const countPeople = fam => fam.generations.reduce((n, g) => n + g.units.flat().length, 0);
 
-    const personCard = (p, fam) => {
+    const photoSrc = (p, fam, w = 360, h = 450) => {
       const bg = fam.color.slice(1), fg = fam.color === '#D9A441' ? '1F3A2E' : 'F6EFE3';
-      const src = p.photo || `https://placehold.co/360x450/${bg}/${fg}?text=${encodeURIComponent(initials(p.name))}&font=playfair-display`;
-      return `<article class="person card">
-        <div class="photo"><img src="${esc(src)}" alt="${p.photo ? 'Portrait of ' + esc(p.name) : 'Placeholder portrait'}"></div>
-        <div class="person-body">
-          <h4>${esc(p.name)}</h4>
-          ${p.place ? `<p class="place">${esc(p.place)}</p>` : ''}
-          <dl>
-            <dt>Born</dt><dd>${esc(p.born) || '—'}</dd>
-            <dt>Died</dt><dd>${p.died ? esc(p.died) : '<span class="living">Living</span>'}</dd>
-          </dl>
-        </div>
-      </article>`;
+      return p.photo || `https://placehold.co/${w}x${h}/${bg}/${fg}?text=${encodeURIComponent(initials(p.name))}&font=playfair-display`;
     };
 
-    const unitHTML = (unit, fam) => `<div class="unit">${unit.map(p => personCard(p, fam)).join('<div class="bond" aria-hidden="true"><span></span></div>')}</div>`;
+    const nameLines = n => {
+      const w = n.trim().split(/\s+/);
+      return w.length > 1 ? [w.slice(0, -1).join(' '), w[w.length - 1]] : w;
+    };
+    const lifeText = p => p.died ? `${p.born || '?'} – ${p.died}` : `born ${p.born || '?'}, living`;
+
+    const personCard = (p, fam, id) => `
+      <article class="person" data-person="${id}" role="button" tabindex="0" aria-haspopup="dialog" aria-label="${esc(p.name)}, ${esc(lifeText(p))}. View details">
+        <img src="${esc(photoSrc(p, fam))}" alt="">
+        <p class="person-name" aria-hidden="true">${nameLines(p.name).map(l => `<span>${esc(l)}</span>`).join('')}</p>
+        <span class="person-kebab" aria-hidden="true"><svg width="4" height="18" viewBox="0 0 4 18" fill="currentColor"><circle cx="2" cy="2" r="2"/><circle cx="2" cy="9" r="2"/><circle cx="2" cy="16" r="2"/></svg></span>
+      </article>`;
+
+    const unitHTML = (unit, fam, gi, ui) => `<div class="unit">${unit.map((p, pi) => personCard(p, fam, `${gi}.${ui}.${pi}`)).join('<div class="bond" aria-hidden="true"><span></span></div>')}</div>`;
+
+    // ---------- Person detail dialog ----------
+    const dialog = document.getElementById('person-dialog');
+    const pdContent = document.getElementById('pd-content');
+    let current = null; // { key, fam }
+
+    const lookup = id => {
+      const [gi, ui, pi] = id.split('.').map(Number);
+      const g = current.fam.generations[gi], unit = g.units[ui];
+      const spouseIdx = unit.length === 2 ? 1 - pi : null;
+      return { p: unit[pi], gen: g.label, spouse: spouseIdx === null ? null : { p: unit[spouseIdx], id: `${gi}.${ui}.${spouseIdx}` } };
+    };
+
+    const openPerson = id => {
+      const { p, gen, spouse } = lookup(id), fam = current.fam;
+      const first = p.name.replace(/[\[\]]/g, '').split(/\s+/)[0];
+      const life = p.died ? `${esc(p.born) || '?'} – ${esc(p.died)}` : `Born ${esc(p.born) || '?'} · Living`;
+      const bio = p.bio
+        ? `<div class="pd-bio">${p.bio.split(/\n\n+/).map(par => `<p>${esc(par)}</p>`).join('')}</div>`
+        : `<div class="pd-bio empty"><p>We haven’t written ${esc(first)}’s story yet. Know where they lived, the work they did, or a memory of them? <a class="link" href="story.html#share">Share it with the family historian</a> and we’ll add it here.</p></div>`;
+      pdContent.innerHTML = `
+        <div class="photo pd-photo"><img src="${esc(photoSrc(p, fam, 640, 800))}" alt="${p.photo ? 'Portrait of ' + esc(p.name) : ''}"></div>
+        <div class="pd-body">
+          <p class="eyebrow">${esc(fam.name)} · ${esc(gen.split('·')[0].trim())}</p>
+          <h3 class="pd-name" id="pd-name">${esc(p.name)}</h3>
+          <p class="pd-life">${life}</p>
+          <dl class="pd-facts">
+            <div><dt>Born</dt><dd>${esc(p.born) || '—'}</dd></div>
+            <div><dt>${p.died ? 'Died' : 'Status'}</dt><dd>${p.died ? esc(p.died) : '<span class="living">Living</span>'}</dd></div>
+            ${p.place ? `<div><dt>Lived in</dt><dd>${esc(p.place)}</dd></div>` : ''}
+          </dl>
+          ${bio}
+          ${spouse ? `
+            <button class="pd-spouse" data-open="${spouse.id}">
+              <img src="${esc(photoSrc(spouse.p, fam, 88, 88))}" alt="">
+              <span style="flex:1"><span style="display:block;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--clay)">Married to</span>
+                <span class="font-display" style="font-size:1.1rem">${esc(spouse.p.name)}</span></span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="margin-right:.5rem"><path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>` : ''}
+          <p style="margin-top:var(--s-4);font-size:.9rem;color:var(--ink-soft)">Have a photo or correction? <a class="link" href="story.html#share">Tell us</a></p>
+        </div>`;
+      if (!dialog.open) dialog.showModal();
+      pdContent.scrollTop = 0; pdContent.querySelector('.pd-body').scrollTop = 0;
+    };
+
+    dialog.addEventListener('click', e => {
+      if (e.target === dialog || e.target.closest('[data-close]')) return dialog.close();
+      const s = e.target.closest('[data-open]'); if (s) openPerson(s.dataset.open);
+    });
 
     const pick = document.getElementById('family-pick');
     pick.innerHTML = Object.entries(TREES).map(([key, fam]) => `
@@ -228,6 +355,7 @@
     const showTree = (key, scroll = true) => {
       const fam = TREES[key]; if (!fam) return;
       pick.querySelectorAll('.family-card').forEach(b => b.setAttribute('aria-pressed', b.dataset.family === key));
+      current = { key, fam };
       tree.innerHTML = `
         <div class="tree-in">
           <div class="flex flex-wrap items-end justify-between gap-4" style="margin-bottom:var(--s-6)">
@@ -238,10 +366,10 @@
             <a class="link" href="story.html">Read their story
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
           </div>
-          ${fam.generations.map(g => `
+          ${fam.generations.map((g, gi) => `
             <section class="gen" aria-label="${esc(g.label)}">
               <span class="gen-label">${esc(g.label)}</span>
-              <div class="gen-row">${g.units.map(u => unitHTML(u, fam)).join('')}</div>
+              <div class="gen-row">${g.units.map((u, ui) => unitHTML(u, fam, gi, ui)).join('')}</div>
             </section>`).join('<div class="trunk" aria-hidden="true"></div>')}
         </div>`;
       tree.hidden = false;
@@ -250,6 +378,13 @@
     };
     pick.addEventListener('click', e => {
       const b = e.target.closest('[data-family]'); if (b) showTree(b.dataset.family);
+    });
+    tree.addEventListener('click', e => {
+      const b = e.target.closest('[data-person]'); if (b) openPerson(b.dataset.person);
+    });
+    tree.addEventListener('keydown', e => {
+      const b = e.target.closest('[data-person]');
+      if (b && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openPerson(b.dataset.person); }
     });
 
     // Deep links: gallery.html#ancestors or #ancestors-greggs

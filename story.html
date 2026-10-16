@@ -16,12 +16,15 @@
     .era-rail { position: sticky; top: 92px; z-index: 20; min-width: 0; }
     .timeline-main { min-width: 0; }
     .entry .polaroid { max-width: 260px; }
+    .farm-photo { height: 280px; }
+    @media (min-width: 768px) { .farm-photo { height: auto; aspect-ratio: 16 / 8; } }
     .era-rail-inner {
       display: flex; gap: .4rem; overflow-x: auto; padding: .5rem; border-radius: 999px; scrollbar-width: none;
       background: rgba(246,239,227,.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
       box-shadow: var(--sh-2), inset 0 0 0 1px rgba(31,58,46,.08);
     }
     .era-rail-inner::-webkit-scrollbar { display: none; }
+    .era-rail::after { content: ""; position: absolute; top: 4px; bottom: 4px; right: 4px; width: 48px; border-radius: 0 999px 999px 0; background: linear-gradient(to right, rgba(246,239,227,0), rgba(246,239,227,.95)); pointer-events: none; }
     .era-link {
       flex: none; text-decoration: none; padding: .55rem 1rem; border-radius: 999px; font-weight: 600; font-size: .875rem; color: var(--ink-soft);
       transition: transform .4s var(--ease-spring); white-space: nowrap;
@@ -32,6 +35,7 @@
     .era-link .yr { font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; opacity: .7; margin-left: .35rem; }
     @media (min-width: 1024px) {
       .era-rail { top: 120px; align-self: start; }
+      .era-rail::after { display: none; }
       .era-rail-inner { flex-direction: column; border-radius: 22px; padding: .6rem; overflow: visible; }
       .era-link { padding: .8rem 1rem; border-radius: 14px; display: flex; justify-content: space-between; gap: 1rem; }
     }
@@ -116,7 +120,7 @@
               <p class="eyebrow">Era one · Time out of mind</p>
               <h2 style="font-size: clamp(2.4rem, 5.5vw, 4rem); margin-top: var(--s-3)">Before <em>the records.</em></h2>
               <p class="lede" style="margin-top: var(--s-4)">The oldest part of our story lives in songs, sayings and the stories elders told on porches and at kitchen tables. Dates are unknown here — but the people were real, and they are ours.</p>
-              <div class="grid gap-5 md:grid-cols-3" style="margin-top: var(--s-6)">
+              <div class="grid gap-5 md:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3" style="margin-top: var(--s-6)">
                 <div style="padding: var(--s-4); border-radius: 16px; background: rgba(246,239,227,.06); box-shadow: inset 0 0 0 1px rgba(246,239,227,.12)">
                   <p class="entry-year" style="color:var(--gold)">Origins</p>
                   <h3 style="font-size:1.5rem;margin-top:.3rem">Where we began</h3>
@@ -140,7 +144,7 @@
           <!-- ============ ERA: 1800s ============
                To add an entry: copy one <div class="entry">…</div> block below and change the year, title and text. -->
           <article id="era-1800s" class="era">
-            <header class="grid gap-4 md:grid-cols-[auto_1fr] md:items-end reveal">
+            <header class="grid gap-4 xl:grid-cols-[auto_1fr] xl:items-end reveal">
               <span class="era-num">1800s</span>
               <div>
                 <p class="eyebrow">Era two</p>
@@ -181,7 +185,7 @@
 
           <!-- ============ ERA: 1900–1949 ============ -->
           <article id="era-1900s" class="era">
-            <header class="grid gap-4 md:grid-cols-[auto_1fr] md:items-end reveal">
+            <header class="grid gap-4 xl:grid-cols-[auto_1fr] xl:items-end reveal">
               <span class="era-num">1900</span>
               <div>
                 <p class="eyebrow">Era three · 1900 – 1949</p>
@@ -202,7 +206,7 @@
                 <p class="body">The congregation that anchored the family — founding members, weddings, homecomings and the hymns still sung today.</p>
               </div>
               <div class="entry reveal">
-                <div class="photo card-float" style="aspect-ratio: 16/8; min-height: 280px">
+                <div class="photo card-float farm-photo">
                   <img src="https://placehold.co/1100x550/1F3A2E/D9A441?text=Family+Farm+c.+1920s&font=playfair-display" alt="Placeholder: family farm in the 1920s">
                   <div class="cap"><span>c. 1920s</span><b>[Add caption: who’s pictured, where]</b></div>
                 </div>
@@ -220,7 +224,7 @@
 
           <!-- ============ ERA: 1950–1999 ============ -->
           <article id="era-1950s" class="era">
-            <header class="grid gap-4 md:grid-cols-[auto_1fr] md:items-end reveal">
+            <header class="grid gap-4 xl:grid-cols-[auto_1fr] xl:items-end reveal">
               <span class="era-num">1950</span>
               <div>
                 <p class="eyebrow">Era four · 1950 – 1999</p>
@@ -259,7 +263,7 @@
 
           <!-- ============ ERA: 2000–TODAY ============ -->
           <article id="era-2000s" class="era">
-            <header class="grid gap-4 md:grid-cols-[auto_1fr] md:items-end reveal">
+            <header class="grid gap-4 xl:grid-cols-[auto_1fr] xl:items-end reveal">
               <span class="era-num">2000</span>
               <div>
                 <p class="eyebrow">Era five · 2000 – Today</p>

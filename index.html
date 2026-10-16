@@ -34,7 +34,8 @@
 
     @media (min-width: 1024px) {
       .hero { min-height: min(100svh, 940px); align-items: center; }
-      .hero-media { top: 0; height: auto; left: 22%; }
+      .hero-media { top: 0; height: auto; left: 36%; }
+      .hero h1 { font-size: clamp(3.1rem, 6.4vw, 6.8rem); }
       .hero-media img { object-position: 60% 62%; }
       .hero-media::after {
         background:
@@ -44,6 +45,7 @@
       .hero-content { padding-top: calc(84px + var(--s-5)); padding-bottom: calc(var(--s-8) + var(--s-5)); }
       .hero .lede { max-width: 27rem; }
     }
+    @media (min-width: 1280px) { .hero-media { left: 22%; } }
 
     /* At-a-glance bar */
     .hero-bar-wrap { position: relative; z-index: 3; margin-top: calc(-1 * var(--s-7)); margin-bottom: var(--s-7); }
@@ -166,7 +168,7 @@
           <circle cx="200" cy="35" r="7" fill="#1F3A2E"/><circle cx="600" cy="35" r="7" fill="#B5532F"/><circle cx="1000" cy="35" r="7" fill="#D9A441"/>
         </svg>
 
-        <div class="grid gap-6 md:grid-cols-3" style="margin-top: var(--s-5)">
+        <div class="grid gap-6 lg:grid-cols-3" style="margin-top: var(--s-5)">
           <article class="root-card card reveal" style="padding: var(--s-5)">
             <span class="grid h-14 w-14 place-items-center rounded-full font-display text-2xl italic" style="background:var(--leaf);color:var(--paper)">G</span>
             <h3 style="font-size:2rem;margin-top:var(--s-4)">The Greggs</h3>
@@ -206,8 +208,8 @@
         </div>
 
         <div class="relative reveal" style="margin-top: var(--s-7)">
-          <div class="absolute left-0 right-0 hidden md:block" style="top: 11px; height: 2px; background: linear-gradient(90deg, transparent, rgba(217,164,65,.6) 8%, rgba(217,164,65,.6) 92%, transparent)"></div>
-          <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-5">
+          <div class="absolute left-0 right-0 hidden lg:block" style="top: 11px; height: 2px; background: linear-gradient(90deg, transparent, rgba(217,164,65,.6) 8%, rgba(217,164,65,.6) 92%, transparent)"></div>
+          <div class="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
             <a class="era-pill relative block" href="story.html#before">
               <span class="dot block h-6 w-6 rounded-full" style="background:var(--gold);box-shadow:0 0 0 6px rgba(217,164,65,.18)"></span>
               <p class="font-display" style="font-size:1.6rem;margin-top:var(--s-3);letter-spacing:-.02em">Before Memory</p>
