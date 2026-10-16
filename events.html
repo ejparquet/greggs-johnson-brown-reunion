@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reunion & Events · Greggs · Johnson · Brown Family</title>
+  <meta name="description" content="Dates, schedule, venue and RSVP for the Greggs Johnson Brown Family Reunion.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/tw-config.js"></script>
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .day-tabs { display: inline-flex; gap: .3rem; padding: .35rem; border-radius: 999px; background: var(--paper-2); box-shadow: inset 0 1px 3px rgba(31,58,46,.08); }
+    .day-panel[hidden] { display: none; }
+    .slot { display: grid; grid-template-columns: 68px 1fr; gap: var(--s-4); padding-block: var(--s-4); border-top: 1px solid rgba(31,58,46,.1); }
+    .slot:first-child { border-top: 0; }
+    @media (min-width: 640px) { .slot { grid-template-columns: 92px 1fr; } }
+    .slot time { font-family: 'Fraunces', serif; font-style: italic; color: var(--clay); font-size: 1.05rem; padding-top: .2rem; }
+    .slot h3 { font-size: 1.5rem; }
+    .slot p { color: var(--ink-soft); margin-top: .25rem; }
+    .tag { display: inline-block; margin-top: .6rem; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; color: var(--leaf); background: rgba(31,58,46,.07); padding: .3rem .65rem; border-radius: 999px; }
+    .past-row { display: grid; grid-template-columns: 90px 1fr auto; gap: var(--s-3); align-items: center; padding-block: var(--s-3); border-top: 1px solid rgba(246,239,227,.12); }
+    .past-row b { font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.6rem; letter-spacing: -0.02em; color: var(--gold); }
+  </style>
+</head>
+<body>
+  <header id="site-header"></header>
+
+  <main>
+    <!-- HERO -->
+    <section class="relative isolate" style="padding-block: var(--s-7)">
+      <div class="hero-bg"></div>
+      <div class="wrap grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+        <div>
+          <p class="eyebrow rise d1">Reunion 2027 · Greggs · Johnson · Brown</p>
+          <h1 class="rise d2" style="font-size: clamp(3rem, 8vw, 6rem); margin-top: var(--s-4)">Come home<br><em>this summer.</em></h1>
+          <p class="lede rise d3" style="margin-top: var(--s-4)">Three days, three families, one table. Here’s everything you need — dates, the schedule, where to stay and how to let us know you’re coming.</p>
+          <div class="flex flex-wrap gap-3 rise d4" style="margin-top: var(--s-5)">
+            <a class="btn btn-clay" href="#rsvp">RSVP now
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a class="btn btn-ghost" href="#schedule">View schedule</a>
+          </div>
+        </div>
+
+        <div class="section-dark card-float rise d3" style="border-radius: 28px; padding: clamp(1.75rem, 4vw, 2.75rem)">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p class="eyebrow">Save the date</p>
+              <p class="font-display" style="font-size: clamp(2.2rem, 5vw, 3.2rem); letter-spacing: -0.03em; line-height: 1.05; margin-top: var(--s-2)">July 16 – 18<br><span style="font-style:italic;color:var(--gold)">2027</span></p>
+            </div>
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" aria-hidden="true" style="flex:none;opacity:.9">
+              <path d="M8 44 C 22 10, 42 10, 56 44" stroke="#B5532F" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M8 20 C 22 54, 42 54, 56 20" stroke="#D9A441" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M8 32 C 24 24, 40 40, 56 32" stroke="#F6EFE3" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="count" style="margin-top: var(--s-5)">
+            <div><b data-count="d">--</b><span>Days</span></div>
+            <div><b data-count="h">--</b><span>Hours</span></div>
+            <div><b data-count="m">--</b><span>Min</span></div>
+            <div><b data-count="s">--</b><span>Sec</span></div>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2" style="margin-top: var(--s-5); padding-top: var(--s-4); border-top: 1px solid rgba(246,239,227,.12)">
+            <div><p style="font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--gold)">Where</p><p style="margin-top:.2rem">[Venue Name]<br><span style="opacity:.7">[City, State]</span></p></div>
+            <div><p style="font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--gold)">RSVP by</p><p style="margin-top:.2rem">May 1, 2027<br><span style="opacity:.7">Registration [$ per adult]</span></p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="quilt"></div>
+
+    <!-- SCHEDULE -->
+    <section id="schedule" style="padding-block: var(--s-8); scroll-margin-top: 100px">
+      <div class="wrap grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+        <div class="reveal">
+          <p class="eyebrow">Weekend schedule</p>
+          <h2 style="font-size: clamp(2.4rem, 5.5vw, 4rem); margin-top: var(--s-3)">Three days of <em>being together.</em></h2>
+          <p class="lede" style="margin-top: var(--s-4)">Times and places may shift a little as plans firm up — check back here, or watch the family group chat.</p>
+          <a class="link" href="#" style="margin-top: var(--s-4)">Add to my calendar
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+
+        <div class="card reveal" style="padding: clamp(1.25rem, 4vw, 2.5rem)">
+          <div class="day-tabs" role="tablist" aria-label="Reunion days">
+            <button class="chip" role="tab" aria-pressed="true" aria-selected="true" aria-controls="day-fri" id="tab-fri">Fri · Jul 16</button>
+            <button class="chip" role="tab" aria-pressed="false" aria-selected="false" aria-controls="day-sat" id="tab-sat">Sat · Jul 17</button>
+            <button class="chip" role="tab" aria-pressed="false" aria-selected="false" aria-controls="day-sun" id="tab-sun">Sun · Jul 18</button>
+          </div>
+
+          <div class="day-panel" id="day-fri" role="tabpanel" aria-labelledby="tab-fri" style="margin-top: var(--s-4)">
+            <div class="slot"><time>3:00 pm</time><div><h3>Check-in & registration</h3><p>Pick up name tags, reunion T-shirts and the weekend booklet at the hospitality table.</p><span class="tag">Host hotel lobby</span></div></div>
+            <div class="slot"><time>6:00 pm</time><div><h3>Welcome Home Fish Fry</h3><p>Casual dinner, music and the first round of hugs. Find your branch on the family-tree wall.</p><span class="tag">Hospitality suite</span></div></div>
+            <div class="slot"><time>8:30 pm</time><div><h3>Old Photo Night</h3><p>Bring your shoebox photos — we’ll scan them on site and play “Who is that?”</p><span class="tag">All ages</span></div></div>
+          </div>
+          <div class="day-panel" id="day-sat" role="tabpanel" aria-labelledby="tab-sat" style="margin-top: var(--s-4)" hidden>
+            <div class="slot"><time>10:00 am</time><div><h3>Family Picnic</h3><p>Games for the kids, spades and dominoes for the grown folks, and plenty of food off the grill.</p><span class="tag">[Park name]</span></div></div>
+            <div class="slot"><time>1:00 pm</time><div><h3>The Generations Photo</h3><p>Everyone in reunion colors — grouped by generation, then all together.</p><span class="tag">Don’t be late!</span></div></div>
+            <div class="slot"><time>6:30 pm</time><div><h3>Reunion Banquet</h3><p>Dinner, the family history presentation, honoring our elders and dancing.</p><span class="tag">Banquet hall · Dressy</span></div></div>
+          </div>
+          <div class="day-panel" id="day-sun" role="tabpanel" aria-labelledby="tab-sun" style="margin-top: var(--s-4)" hidden>
+            <div class="slot"><time>10:00 am</time><div><h3>Family Worship Service</h3><p>Worship together, with a memorial moment for those we’ve lost since the last reunion.</p><span class="tag">[Church name]</span></div></div>
+            <div class="slot"><time>12:30 pm</time><div><h3>Farewell Brunch</h3><p>One last meal, the hand-off to the next host family, and safe-travel prayers.</p><span class="tag">Host hotel</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VENUE & LODGING -->
+    <section style="padding-bottom: var(--s-8)">
+      <div class="wrap grid gap-6 md:grid-cols-3">
+        <div class="photo card-float reveal md:col-span-2" style="min-height: 320px">
+          <img src="https://placehold.co/1000x560/2C5140/D9A441?text=Venue+Photo&font=playfair-display" alt="Placeholder: reunion venue" style="position:absolute;inset:0">
+          <div class="cap"><span>The venue</span><b style="font-size:1.8rem">[Venue Name] · [City, State]</b></div>
+        </div>
+        <div class="grid gap-6">
+          <div class="card reveal" style="padding: var(--s-4)">
+            <p class="eyebrow">Stay</p>
+            <h3 style="font-size:1.5rem;margin-top:var(--s-2)">[Host Hotel]</h3>
+            <p style="color:var(--ink-soft);font-size:.95rem;margin-top:.3rem">Ask for the <b>Greggs-Johnson-Brown Reunion</b> block rate. Book by [date].</p>
+            <a class="link" href="#" style="margin-top:var(--s-3)">Book a room
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+          <div class="card reveal" style="padding: var(--s-4)">
+            <p class="eyebrow">Getting there</p>
+            <h3 style="font-size:1.5rem;margin-top:var(--s-2)">Travel & directions</h3>
+            <p style="color:var(--ink-soft);font-size:.95rem;margin-top:.3rem">Nearest airport: [Airport]. Carpools organized in the family group.</p>
+            <a class="link" href="#" style="margin-top:var(--s-3)">Open map
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RSVP + PAST REUNIONS -->
+    <section class="section-dark" id="rsvp" style="padding-block: var(--s-8); scroll-margin-top: 90px">
+      <div class="wrap grid gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+        <div class="reveal">
+          <p class="eyebrow">RSVP</p>
+          <h2 style="font-size: clamp(2.4rem, 5.5vw, 4rem); margin-top: var(--s-3)">Count us <em>in.</em></h2>
+          <p class="lede" style="margin-top: var(--s-3)">One form per household, please. We’ll follow up with payment details and T-shirt pickup.</p>
+
+          <form id="rsvp-form" class="card card-float" style="margin-top: var(--s-5); padding: clamp(1.25rem, 4vw, 2.25rem); color: var(--ink)">
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="field"><label for="r-name">Head of household</label><input id="r-name" name="name" required autocomplete="name"></div>
+              <div class="field"><label for="r-email">Email or phone</label><input id="r-email" name="contact" required></div>
+              <div class="field"><label for="r-branch">Family branch</label>
+                <select id="r-branch" name="branch"><option>Greggs</option><option>Johnson</option><option>Brown</option><option>More than one</option></select></div>
+              <div class="field"><label for="r-city">Traveling from</label><input id="r-city" name="city" placeholder="City, State"></div>
+              <div class="field"><label for="r-adults">Adults</label><input id="r-adults" name="adults" type="number" min="0" value="2"></div>
+              <div class="field"><label for="r-kids">Children (under 12)</label><input id="r-kids" name="kids" type="number" min="0" value="0"></div>
+            </div>
+            <div class="field" style="margin-top: var(--s-4)"><label for="r-names">Names & T-shirt sizes</label><textarea id="r-names" name="names" rows="3" placeholder="e.g. Aunt Lou — L, Marcus — M, baby Kai — 2T"></textarea></div>
+            <div class="flex flex-wrap items-center gap-4" style="margin-top: var(--s-4)">
+              <button class="btn btn-clay" type="submit">Send my RSVP
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <p id="rsvp-thanks" role="status" style="font-weight:600;color:var(--leaf)"></p>
+            </div>
+          </form>
+        </div>
+
+        <aside class="reveal">
+          <p class="eyebrow">Reunions past</p>
+          <h3 style="font-size: clamp(1.8rem, 3.5vw, 2.4rem); margin-top: var(--s-3)">Where we’ve <em style="color:var(--gold)">gathered.</em></h3>
+          <div style="margin-top: var(--s-5)">
+            <div class="past-row"><b>2025</b><span>[City, State]<br><span style="opacity:.6;font-size:.9rem">Hosted by the [ ] family</span></span><a class="link" href="gallery.html" style="color:var(--paper)">Photos</a></div>
+            <div class="past-row"><b>2023</b><span>[City, State]<br><span style="opacity:.6;font-size:.9rem">Hosted by the [ ] family</span></span><a class="link" href="gallery.html" style="color:var(--paper)">Photos</a></div>
+            <div class="past-row"><b>2021</b><span>[City, State]<br><span style="opacity:.6;font-size:.9rem">Hosted by the [ ] family</span></span><a class="link" href="gallery.html" style="color:var(--paper)">Photos</a></div>
+            <div class="past-row"><b>2019</b><span>[City, State]<br><span style="opacity:.6;font-size:.9rem">Hosted by the [ ] family</span></span><a class="link" href="gallery.html" style="color:var(--paper)">Photos</a></div>
+            <div class="past-row" style="border-bottom:1px solid rgba(246,239,227,.12)"><b>19__</b><span>The very first reunion<br><span style="opacity:.6;font-size:.9rem">Where it all started</span></span><a class="link" href="story.html#era-1950s" style="color:var(--paper)">Story</a></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <script src="assets/site.js"></script>
+  <script>
+    // Day tabs
+    const tabs = document.querySelectorAll('[role=tab]');
+    tabs.forEach(t => t.addEventListener('click', () => {
+      tabs.forEach(x => {
+        const on = x === t;
+        x.setAttribute('aria-pressed', on); x.setAttribute('aria-selected', on);
+        document.getElementById(x.getAttribute('aria-controls')).hidden = !on;
+      });
+    }));
+
+    // RSVP → opens an email to the reunion committee (swap for a form service later)
+    document.getElementById('rsvp-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const f = new FormData(e.target);
+      const body = [...f.entries()].map(([k, v]) => `${k}: ${v}`).join('\n');
+      location.href = `mailto:reunion@example.com?subject=${encodeURIComponent('Reunion RSVP — ' + f.get('name'))}&body=${encodeURIComponent(body)}`;
+      document.getElementById('rsvp-thanks').textContent = 'Thank you! Your email app should open to send it.';
+    });
+  </script>
+</body>
+</html>

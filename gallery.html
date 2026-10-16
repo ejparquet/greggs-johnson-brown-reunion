@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Photo Gallery · Greggs · Johnson · Brown Family</title>
+  <meta name="description" content="Family photos across the generations — reunions, elders, kitchens and cousins.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/tw-config.js"></script>
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .masonry { columns: 1; column-gap: var(--s-4); }
+    @media (min-width: 640px) { .masonry { columns: 2; } }
+    @media (min-width: 1024px) { .masonry { columns: 3; } }
+    .tile {
+      display: block; width: 100%; margin-bottom: var(--s-4); break-inside: avoid; border: 0; padding: 0; cursor: zoom-in; text-align: left;
+      transition: transform .55s var(--ease-spring), opacity .35s;
+      box-shadow: var(--sh-2);
+    }
+    .tile:hover { transform: translateY(-4px); }
+    .tile:hover img { transform: scale(1.05); }
+    .tile:active { transform: scale(.985); }
+    .tile.hide { display: none; }
+
+    .lightbox {
+      position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; padding: var(--s-4);
+      background: rgba(20,40,32,.92); backdrop-filter: blur(6px);
+      opacity: 0; pointer-events: none; transition: opacity .3s;
+    }
+    .lightbox.open { opacity: 1; pointer-events: auto; }
+    .lightbox figure { margin: 0; max-width: min(1000px, 100%); transform: scale(.96); transition: transform .5s var(--ease-spring); }
+    .lightbox.open figure { transform: none; }
+    .lightbox img { max-height: 78vh; width: auto; margin: 0 auto; border-radius: 12px; box-shadow: var(--sh-3); }
+    .lightbox figcaption { color: var(--paper); text-align: center; margin-top: var(--s-3); }
+    .lb-btn { position: absolute; background: rgba(246,239,227,.12); color: var(--paper); }
+    .lb-btn:hover { background: var(--clay); }
+
+    /* ---------- Elders & ancestors: family trees ---------- */
+    .ancestors[hidden], .masonry[hidden] { display: none; }
+    .family-card {
+      position: relative; display: block; width: 100%; text-align: left; border: 0; cursor: pointer; font: inherit; color: inherit;
+      padding: var(--s-5); transition: transform .55s var(--ease-spring);
+    }
+    .family-card:hover { transform: translateY(-6px); }
+    .family-card:active { transform: translateY(-2px) scale(.985); }
+    .family-card:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
+    .family-card[aria-pressed="true"] { box-shadow: var(--sh-3), inset 0 0 0 2px var(--fam); }
+    .family-card .mono { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; font-family: 'Fraunces', serif; font-style: italic; font-size: 1.9rem; color: var(--paper); background: var(--fam); }
+    .family-card .go { display: inline-flex; align-items: center; gap: .45rem; margin-top: var(--s-4); font-weight: 700; font-size: .9rem; color: var(--leaf); }
+    .family-card .go svg { transition: transform .45s var(--ease-spring); }
+    .family-card:hover .go svg { transform: translateY(3px); }
+
+    .tree { margin-top: var(--s-6); padding: clamp(1.25rem, 4vw, 3rem); border-radius: 28px; background: var(--paper-2); box-shadow: inset 0 0 0 1px rgba(31,58,46,.08), inset 0 2px 12px rgba(31,58,46,.05); }
+    .tree[hidden] { display: none; }
+    .tree { scroll-margin-top: 100px; }
+    .gen { text-align: center; }
+    .gen-label {
+      display: inline-block; font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; font-weight: 700;
+      color: var(--paper); background: var(--leaf); padding: .45rem .9rem; border-radius: 999px; box-shadow: var(--sh-1);
+    }
+    .gen-row { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-4) var(--s-5); margin-top: var(--s-4); }
+    .trunk { width: 2px; height: var(--s-6); margin: var(--s-3) auto; background: linear-gradient(var(--clay), var(--gold)); border-radius: 2px; position: relative; }
+    .trunk::after { content: ""; position: absolute; left: 50%; bottom: -4px; width: 9px; height: 9px; margin-left: -4.5px; border-radius: 50%; background: var(--gold); }
+    .unit { display: flex; align-items: stretch; }
+    .bond { flex: none; display: grid; place-items: center; width: 30px; position: relative; }
+    .bond::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; background: var(--gold); }
+    .bond span { position: relative; width: 18px; height: 18px; border-radius: 50%; background: var(--paper-2); box-shadow: inset 0 0 0 2px var(--gold); }
+
+    .person { width: 152px; text-align: left; overflow: hidden; }
+    @media (min-width: 640px) { .person { width: 184px; } }
+    .person .photo { border-radius: var(--radius) var(--radius) 0 0; aspect-ratio: 4 / 5; }
+    .person .photo::after { background: linear-gradient(to top, rgba(0,0,0,.35), transparent 50%); }
+    .person-body { padding: var(--s-2) var(--s-3) var(--s-3); }
+    .person h4 { margin: 0; font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.08rem; letter-spacing: -0.02em; line-height: 1.2; }
+    .person .place { font-size: .78rem; color: var(--ink-soft); margin-top: .15rem; }
+    .person dl { margin: var(--s-2) 0 0; display: grid; grid-template-columns: auto 1fr; gap: .15rem .6rem; font-size: .82rem; line-height: 1.45; }
+    .person dt { font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; color: var(--clay); padding-top: .15rem; }
+    .person dd { margin: 0; color: var(--ink); font-variant-numeric: tabular-nums; }
+    .living { display: inline-block; font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--leaf); background: rgba(31,58,46,.09); padding: .15rem .5rem; border-radius: 999px; }
+    .tree-in { animation: rise .7s var(--ease-out) both; }
+  </style>
+</head>
+<body>
+  <header id="site-header"></header>
+
+  <main>
+    <section class="relative isolate" style="padding-block: var(--s-7) var(--s-6)">
+      <div class="hero-bg"></div>
+      <div class="wrap grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-end">
+        <div>
+          <p class="eyebrow rise d1">Photo gallery</p>
+          <h1 class="rise d2" style="font-size: clamp(3rem, 8vw, 6rem); margin-top: var(--s-4)">Faces we<br><em>know by heart.</em></h1>
+        </div>
+        <p class="lede rise d3">From faded portraits in Grandma’s bible to last summer’s group photo. Tap any picture to see it larger — and if you spot someone unnamed, tell us who it is.</p>
+      </div>
+
+      <div class="wrap rise d4" style="margin-top: var(--s-6)">
+        <div class="flex flex-wrap gap-2" role="group" aria-label="Filter photos">
+          <button class="chip" aria-pressed="true" data-filter="all">All photos</button>
+          <button class="chip" aria-pressed="false" data-filter="reunions">Reunions</button>
+          <button class="chip" aria-pressed="false" data-filter="elders">Elders & ancestors</button>
+          <button class="chip" aria-pressed="false" data-filter="generations">Generations</button>
+          <button class="chip" aria-pressed="false" data-filter="table">Around the table</button>
+          <button class="chip" aria-pressed="false" data-filter="then-now">Then & now</button>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-bottom: var(--s-8)">
+      <div class="wrap">
+        <!-- To add a photo: copy a <button class="tile …"> block, set data-cat, the image src/alt and the caption. -->
+        <div class="masonry" id="masonry">
+          <button class="tile photo" data-cat="reunions"><img src="https://placehold.co/800x600/1F3A2E/D9A441?text=Reunion+2023&font=playfair-display" alt="Placeholder: 2023 reunion group photo"><div class="cap"><span>Reunion · 2023</span><b>Everybody say “family!”</b></div></button>
+          <button class="tile photo" data-cat="elders"><img src="https://placehold.co/600x800/2C5140/E6D6BE?text=Great-Grandparents&font=playfair-display" alt="Placeholder: great-grandparents portrait"><div class="cap"><span>Ancestors · c. 1900s</span><b>[Names of great-grandparents]</b></div></button>
+          <button class="tile photo" data-cat="table"><img src="https://placehold.co/800x800/B5532F/F6EFE3?text=Sunday+Dinner&font=playfair-display" alt="Placeholder: Sunday dinner"><div class="cap"><span>Around the table</span><b>Sunday dinner at the homeplace</b></div></button>
+          <button class="tile photo" data-cat="generations"><img src="https://placehold.co/800x560/D9A441/1F3A2E?text=Five+Generations&font=playfair-display" alt="Placeholder: five generations photo"><div class="cap"><span>Generations</span><b>Five generations, one couch</b></div></button>
+          <button class="tile photo" data-cat="then-now"><img src="https://placehold.co/600x750/142820/E6D6BE?text=Then+%26+Now&font=playfair-display" alt="Placeholder: then and now comparison"><div class="cap"><span>Then &amp; now</span><b>Same porch, fifty years apart</b></div></button>
+          <button class="tile photo" data-cat="reunions"><img src="https://placehold.co/800x900/2C5140/D9A441?text=Cookout&font=playfair-display" alt="Placeholder: reunion cookout"><div class="cap"><span>Reunion · 2019</span><b>The grill masters</b></div></button>
+          <button class="tile photo" data-cat="elders"><img src="https://placehold.co/700x700/B5532F/E6D6BE?text=Wedding+Day&font=playfair-display" alt="Placeholder: elders' wedding photo"><div class="cap"><span>Elders · 1950s</span><b>[Couple’s names], wedding day</b></div></button>
+          <button class="tile photo" data-cat="generations"><img src="https://placehold.co/800x600/1F3A2E/E6D6BE?text=Little+Cousins&font=playfair-display" alt="Placeholder: little cousins"><div class="cap"><span>Next generation</span><b>The little cousins</b></div></button>
+          <button class="tile photo" data-cat="table"><img src="https://placehold.co/600x800/D9A441/B5532F?text=Recipe+Card&font=playfair-display" alt="Placeholder: handwritten recipe card"><div class="cap"><span>Around the table</span><b>Big Mama’s pound cake recipe</b></div></button>
+          <button class="tile photo" data-cat="reunions"><img src="https://placehold.co/800x560/142820/D9A441?text=T-Shirt+Photo&font=playfair-display" alt="Placeholder: matching reunion t-shirts"><div class="cap"><span>Reunion · 2015</span><b>Matching shirts, of course</b></div></button>
+          <button class="tile photo" data-cat="then-now"><img src="https://placehold.co/800x800/2C5140/F6EFE3?text=Homeplace&font=playfair-display" alt="Placeholder: the homeplace"><div class="cap"><span>Then &amp; now</span><b>The homeplace today</b></div></button>
+          <button class="tile photo" data-cat="elders"><img src="https://placehold.co/600x780/1F3A2E/D9A441?text=Church+Photo&font=playfair-display" alt="Placeholder: church congregation photo"><div class="cap"><span>Elders · 1940s</span><b>Homecoming Sunday</b></div></button>
+        </div>
+
+        <!-- Elders & ancestors: pick a family, see its tree. People are listed in assets/ancestors.js -->
+        <div class="ancestors" id="ancestors" hidden>
+          <div class="grid gap-8 lg:grid-cols-2 lg:items-end">
+            <div>
+              <p class="eyebrow">Elders & ancestors</p>
+              <h2 style="font-size: clamp(2.2rem, 5vw, 3.4rem); margin-top: var(--s-3)">Choose a line, <em>meet the elders.</em></h2>
+            </div>
+            <p class="lede">Each family line is laid out by generation — oldest at the top. Know a missing name or date? <a class="link" href="story.html#share">Tell us</a>.</p>
+          </div>
+          <div class="grid gap-6 md:grid-cols-3" id="family-pick" style="margin-top: var(--s-6)"></div>
+          <div class="tree" id="tree" hidden aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="upload" style="padding-bottom: var(--s-8); scroll-margin-top: 110px">
+      <div class="wrap">
+        <div class="section-dark card-float reveal grid gap-8 lg:grid-cols-[1.3fr_1fr] lg:items-center" style="border-radius: 28px; padding: clamp(2rem, 6vw, 4rem)">
+          <div>
+            <p class="eyebrow">Fill the album</p>
+            <h2 style="font-size: clamp(2.2rem, 5vw, 3.4rem); margin-top: var(--s-3)">Send us your <em>photos.</em></h2>
+            <p class="lede" style="margin-top: var(--s-4)">Old or new, scanned or snapped on your phone. Include who’s in it, roughly when, and where — even a guess helps.</p>
+          </div>
+          <div class="flex flex-wrap gap-3 lg:justify-end">
+            <a class="btn btn-clay" href="mailto:reunion@example.com?subject=Family%20photos">Email photos
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a class="btn btn-light" href="#">Shared album link</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button class="icon-btn lb-btn" style="top:1rem;right:1rem" data-lb="close" aria-label="Close">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 4l10 10M14 4 4 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    <button class="icon-btn lb-btn" style="left:1rem;top:50%" data-lb="prev" aria-label="Previous photo">
+      <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M13 8H3m4-4L3 8l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="icon-btn lb-btn" style="right:1rem;top:50%" data-lb="next" aria-label="Next photo">
+      <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <figure><img alt=""><figcaption></figcaption></figure>
+  </div>
+
+  <footer id="site-footer"></footer>
+  <script src="assets/site.js"></script>
+  <script src="assets/ancestors.js"></script>
+  <script>
+    const tiles = [...document.querySelectorAll('.tile')];
+    const chips = document.querySelectorAll('[data-filter]');
+    const masonry = document.getElementById('masonry');
+    const ancestors = document.getElementById('ancestors');
+    const setFilter = f => {
+      chips.forEach(x => x.setAttribute('aria-pressed', x.dataset.filter === f));
+      const isElders = f === 'elders';
+      masonry.hidden = isElders; ancestors.hidden = !isElders;
+      tiles.forEach(t => t.classList.toggle('hide', f !== 'all' && t.dataset.cat !== f));
+    };
+    chips.forEach(c => c.addEventListener('click', () => {
+      setFilter(c.dataset.filter);
+      history.replaceState(null, '', c.dataset.filter === 'elders' ? '#ancestors' : location.pathname);
+    }));
+
+    // ---------- Family trees ----------
+    const TREES = window.FAMILY_TREES;
+    const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    const initials = n => n.replace(/[\[\]]/g, '').split(/\s+/).filter(Boolean).map(w => w[0]).slice(0, 2).join('').toUpperCase() || '?';
+    const countPeople = fam => fam.generations.reduce((n, g) => n + g.units.flat().length, 0);
+
+    const personCard = (p, fam) => {
+      const bg = fam.color.slice(1), fg = fam.color === '#D9A441' ? '1F3A2E' : 'F6EFE3';
+      const src = p.photo || `https://placehold.co/360x450/${bg}/${fg}?text=${encodeURIComponent(initials(p.name))}&font=playfair-display`;
+      return `<article class="person card">
+        <div class="photo"><img src="${esc(src)}" alt="${p.photo ? 'Portrait of ' + esc(p.name) : 'Placeholder portrait'}"></div>
+        <div class="person-body">
+          <h4>${esc(p.name)}</h4>
+          ${p.place ? `<p class="place">${esc(p.place)}</p>` : ''}
+          <dl>
+            <dt>Born</dt><dd>${esc(p.born) || '—'}</dd>
+            <dt>Died</dt><dd>${p.died ? esc(p.died) : '<span class="living">Living</span>'}</dd>
+          </dl>
+        </div>
+      </article>`;
+    };
+
+    const unitHTML = (unit, fam) => `<div class="unit">${unit.map(p => personCard(p, fam)).join('<div class="bond" aria-hidden="true"><span></span></div>')}</div>`;
+
+    const pick = document.getElementById('family-pick');
+    pick.innerHTML = Object.entries(TREES).map(([key, fam]) => `
+      <button class="family-card card" data-family="${key}" aria-pressed="false" aria-controls="tree" style="--fam:${fam.color}">
+        <span class="mono"${fam.color === '#D9A441' ? ' style="color:var(--leaf)"' : ''}>${fam.letter}</span>
+        <h3 style="font-size:2rem;margin-top:var(--s-4)">${esc(fam.name)}</h3>
+        <p style="margin-top:var(--s-2);color:var(--ink-soft);font-size:.95rem">${esc(fam.blurb)}</p>
+        <p style="margin-top:var(--s-3);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--clay)">${fam.generations.length} generations · ${countPeople(fam)} people</p>
+        <span class="go">View the family tree
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 3v10m-4-4 4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </button>`).join('');
+
+    const tree = document.getElementById('tree');
+    const showTree = (key, scroll = true) => {
+      const fam = TREES[key]; if (!fam) return;
+      pick.querySelectorAll('.family-card').forEach(b => b.setAttribute('aria-pressed', b.dataset.family === key));
+      tree.innerHTML = `
+        <div class="tree-in">
+          <div class="flex flex-wrap items-end justify-between gap-4" style="margin-bottom:var(--s-6)">
+            <div>
+              <p class="eyebrow">Family tree</p>
+              <h3 style="font-size:clamp(2rem,4.5vw,3rem);margin-top:var(--s-2)">${esc(fam.name)} <em>line</em></h3>
+            </div>
+            <a class="link" href="story.html">Read their story
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+          ${fam.generations.map(g => `
+            <section class="gen" aria-label="${esc(g.label)}">
+              <span class="gen-label">${esc(g.label)}</span>
+              <div class="gen-row">${g.units.map(u => unitHTML(u, fam)).join('')}</div>
+            </section>`).join('<div class="trunk" aria-hidden="true"></div>')}
+        </div>`;
+      tree.hidden = false;
+      history.replaceState(null, '', '#ancestors-' + key);
+      if (scroll) tree.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+    };
+    pick.addEventListener('click', e => {
+      const b = e.target.closest('[data-family]'); if (b) showTree(b.dataset.family);
+    });
+
+    // Deep links: gallery.html#ancestors or #ancestors-greggs
+    const h = location.hash.slice(1);
+    if (h.startsWith('ancestors')) {
+      setFilter('elders');
+      const key = h.split('-')[1];
+      if (key) showTree(key, false);
+    }
+
+    const lb = document.getElementById('lightbox');
+    const lbImg = lb.querySelector('img'), lbCap = lb.querySelector('figcaption');
+    let idx = 0, lastFocus;
+    const visible = () => tiles.filter(t => !t.classList.contains('hide'));
+    const show = i => {
+      const list = visible(); idx = (i + list.length) % list.length;
+      const t = list[idx], img = t.querySelector('img');
+      lbImg.src = img.src; lbImg.alt = img.alt;
+      lbCap.innerHTML = `<span style="font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;opacity:.7;font-weight:700">${t.querySelector('.cap span').textContent}</span><br><b class="font-display" style="font-size:1.4rem;font-weight:500">${t.querySelector('.cap b').textContent}</b>`;
+    };
+    const open = i => { lastFocus = document.activeElement; show(i); lb.classList.add('open'); lb.querySelector('[data-lb=close]').focus(); };
+    const close = () => { lb.classList.remove('open'); lastFocus?.focus(); };
+    tiles.forEach(t => t.addEventListener('click', () => open(visible().indexOf(t))));
+    lb.addEventListener('click', e => {
+      const a = e.target.closest('[data-lb]')?.dataset.lb;
+      if (a === 'close' || e.target === lb) close();
+      if (a === 'prev') show(idx - 1);
+      if (a === 'next') show(idx + 1);
+    });
+    addEventListener('keydown', e => {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') show(idx - 1);
+      if (e.key === 'ArrowRight') show(idx + 1);
+    });
+  </script>
+</body>
+</html>

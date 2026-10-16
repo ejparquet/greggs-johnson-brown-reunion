@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Greggs · Johnson · Brown Family Reunion</title>
+  <meta name="description" content="Welcome home. The official gathering place for the Greggs, Johnson and Brown family — our story, our photos and our reunion.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/tw-config.js"></script>
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .stack { position: relative; aspect-ratio: 1 / 1.05; }
+    .stack .polaroid { position: absolute; width: 58%; }
+    .stack .p1 { left: 2%; top: 8%; transform: rotate(-7deg); z-index: 1; }
+    .stack .p2 { right: 0; top: 0; transform: rotate(5deg); z-index: 2; }
+    .stack .p3 { left: 22%; bottom: 0; transform: rotate(-1.5deg); z-index: 3; width: 54%; }
+    .stack .polaroid:hover { transform: rotate(0) translateY(-8px) scale(1.03); z-index: 5; }
+    .float-count { position: absolute; z-index: 6; right: -2%; bottom: 6%; width: min(290px, 70%); }
+    .braid path { stroke-dasharray: 6 0; }
+    .root-card { transition: transform .6s var(--ease-spring); }
+    .root-card:hover { transform: translateY(-6px); }
+    .era-pill { transition: transform .5s var(--ease-spring); text-decoration: none; }
+    .era-pill:hover { transform: translateY(-6px); }
+    .era-pill:active { transform: translateY(-2px) scale(.98); }
+    .era-pill:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; border-radius: 16px; }
+    .era-pill .dot { transition: transform .5s var(--ease-spring); }
+    .era-pill:hover .dot { transform: scale(1.5); }
+    .mosaic a { display: block; height: 100%; text-decoration: none; }
+    .mosaic a:hover img { transform: scale(1.06); }
+    .mosaic a:active img { transform: scale(1.02); }
+    .mosaic a:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; border-radius: var(--radius); }
+  </style>
+</head>
+<body>
+  <header id="site-header"></header>
+
+  <main>
+    <!-- HERO -->
+    <section class="relative isolate" style="padding-block: var(--s-7) var(--s-8)">
+      <div class="hero-bg"></div>
+      <div class="wrap grid items-center gap-16 lg:grid-cols-[1.1fr_1fr]">
+        <div>
+          <p class="eyebrow rise d1">Rooted before the records began</p>
+          <h1 class="rise d2" style="font-size: clamp(3rem, 8.5vw, 6.4rem); margin-top: var(--s-4)">
+            Welcome home, <em>family.</em>
+          </h1>
+          <p class="lede rise d3" style="margin-top: var(--s-4)">
+            This is the gathering place for the Greggs, Johnson and Brown family — three lines woven
+            together across generations. Come for the reunion, stay for the stories, and leave a
+            memory for the ones who come after us.
+          </p>
+          <div class="flex flex-wrap gap-3 rise d4" style="margin-top: var(--s-5)">
+            <a class="btn btn-clay" href="events.html#rsvp">RSVP for 2027
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a class="btn btn-ghost" href="story.html">Read our story</a>
+          </div>
+          <div class="flex items-center gap-4 rise d5" style="margin-top: var(--s-6)">
+            <div class="flex -space-x-3">
+              <img class="h-11 w-11 rounded-full ring-4 ring-paper object-cover" src="https://placehold.co/88x88/2C5140/E6D6BE?text=+" alt="">
+              <img class="h-11 w-11 rounded-full ring-4 ring-paper object-cover" src="https://placehold.co/88x88/B5532F/F6EFE3?text=+" alt="">
+              <img class="h-11 w-11 rounded-full ring-4 ring-paper object-cover" src="https://placehold.co/88x88/D9A441/1F3A2E?text=+" alt="">
+              <span class="grid h-11 w-11 place-items-center rounded-full bg-leaf text-paper text-xs font-bold ring-4 ring-paper">+148</span>
+            </div>
+            <p style="font-size:.95rem;color:var(--ink-soft);line-height:1.4"><b style="color:var(--ink)">Cousins already counted in.</b><br>Add your household to the list.</p>
+          </div>
+        </div>
+
+        <div class="relative rise d3">
+          <div class="stack">
+            <figure class="polaroid p1">
+              <div class="photo" style="aspect-ratio:4/5"><img src="https://placehold.co/600x750/2C5140/E6D6BE?text=Grandparents&font=playfair-display" alt="Placeholder: family elders portrait"></div>
+              <figcaption>The elders, Sunday best</figcaption>
+            </figure>
+            <figure class="polaroid p2">
+              <div class="photo" style="aspect-ratio:4/5"><img src="https://placehold.co/600x750/B5532F/F6EFE3?text=Cousins&font=playfair-display" alt="Placeholder: cousins at a past reunion"></div>
+              <figcaption>Cousins, every summer</figcaption>
+            </figure>
+            <figure class="polaroid p3">
+              <div class="photo" style="aspect-ratio:5/4"><img src="https://placehold.co/700x560/1F3A2E/D9A441?text=The+Whole+Family&font=playfair-display" alt="Placeholder: whole-family group photo"></div>
+              <figcaption>All of us, one frame</figcaption>
+            </figure>
+          </div>
+          <div class="float-count card card-float hidden sm:block" style="padding: var(--s-3) var(--s-4); background: var(--leaf); color: var(--paper)">
+            <p style="font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--gold)">Reunion begins in</p>
+            <div style="display:flex;gap:var(--s-3);margin-top:.4rem;font-family:Fraunces,serif;line-height:1">
+              <div><b data-count="d" style="font-size:2rem;font-weight:500">--</b><span style="display:block;font-size:.65rem;opacity:.7;font-family:Hanken Grotesk;letter-spacing:.1em">DAYS</span></div>
+              <div><b data-count="h" style="font-size:2rem;font-weight:500">--</b><span style="display:block;font-size:.65rem;opacity:.7;font-family:Hanken Grotesk;letter-spacing:.1em">HRS</span></div>
+              <div><b data-count="m" style="font-size:2rem;font-weight:500">--</b><span style="display:block;font-size:.65rem;opacity:.7;font-family:Hanken Grotesk;letter-spacing:.1em">MIN</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="quilt"></div>
+
+    <!-- THREE ROOTS -->
+    <section style="padding-block: var(--s-8)">
+      <div class="wrap">
+        <div class="grid gap-8 lg:grid-cols-2 lg:items-end reveal">
+          <div>
+            <p class="eyebrow">Three roots, one tree</p>
+            <h2 style="font-size: clamp(2.4rem, 5.5vw, 4rem); margin-top: var(--s-3)">Woven together,<br><em>never untangled.</em></h2>
+          </div>
+          <p class="lede">Every one of us traces back to at least one of these three lines — and most of us to more than one. Find your branch and see how it reaches the others.</p>
+        </div>
+
+        <svg class="braid hidden lg:block reveal" viewBox="0 0 1200 70" fill="none" aria-hidden="true" style="width:100%;margin-top:var(--s-6)">
+          <path d="M200 60 C 400 0, 500 0, 600 35 S 800 70, 1000 10" stroke="#B5532F" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M200 10 C 400 70, 500 70, 600 35 S 800 0, 1000 60" stroke="#D9A441" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M200 35 C 400 35, 450 10, 600 35 S 800 60, 1000 35" stroke="#1F3A2E" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="200" cy="35" r="7" fill="#1F3A2E"/><circle cx="600" cy="35" r="7" fill="#B5532F"/><circle cx="1000" cy="35" r="7" fill="#D9A441"/>
+        </svg>
+
+        <div class="grid gap-6 md:grid-cols-3" style="margin-top: var(--s-5)">
+          <article class="root-card card reveal" style="padding: var(--s-5)">
+            <span class="grid h-14 w-14 place-items-center rounded-full font-display text-2xl italic" style="background:var(--leaf);color:var(--paper)">G</span>
+            <h3 style="font-size:2rem;margin-top:var(--s-4)">The Greggs</h3>
+            <p style="margin-top:var(--s-2);color:var(--ink-soft)">Add a short introduction to the Greggs line — where they first put down roots, what they were known for, and the names everyone still says at the table.</p>
+            <p style="margin-top:var(--s-4);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--clay)">Earliest known · [Year / Place]</p>
+          </article>
+          <article class="root-card card reveal" style="padding: var(--s-5); transition-delay:.08s">
+            <span class="grid h-14 w-14 place-items-center rounded-full font-display text-2xl italic" style="background:var(--clay);color:var(--paper)">J</span>
+            <h3 style="font-size:2rem;margin-top:var(--s-4)">The Johnsons</h3>
+            <p style="margin-top:var(--s-2);color:var(--ink-soft)">Add a short introduction to the Johnson line — the land, the work, the faith and the stories that have been handed down from one generation to the next.</p>
+            <p style="margin-top:var(--s-4);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--clay)">Earliest known · [Year / Place]</p>
+          </article>
+          <article class="root-card card reveal" style="padding: var(--s-5); transition-delay:.16s">
+            <span class="grid h-14 w-14 place-items-center rounded-full font-display text-2xl italic" style="background:var(--gold);color:var(--leaf)">B</span>
+            <h3 style="font-size:2rem;margin-top:var(--s-4)">The Browns</h3>
+            <p style="margin-top:var(--s-2);color:var(--ink-soft)">Add a short introduction to the Brown line — how the families met, the marriages that joined the three names, and the homeplace everyone remembers.</p>
+            <p style="margin-top:var(--s-4);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--clay)">Earliest known · [Year / Place]</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- STORY TEASER / TIMELINE -->
+    <section class="section-dark" style="padding-block: var(--s-8)">
+      <div class="wrap">
+        <div class="grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-end reveal">
+          <div>
+            <p class="eyebrow">Our story</p>
+            <h2 style="font-size: clamp(2.4rem, 5.5vw, 4rem); margin-top: var(--s-3)">Older than<br><em>any record book.</em></h2>
+          </div>
+          <div>
+            <p class="lede">Our history was carried in voices long before it was written on paper. We’re gathering it era by era — from the oral traditions of our earliest ancestors to the cousins born this year.</p>
+            <a class="link" href="story.html" style="margin-top:var(--s-4);color:var(--gold)">Walk through the timeline
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="relative reveal" style="margin-top: var(--s-7)">
+          <div class="absolute left-0 right-0 hidden md:block" style="top: 11px; height: 2px; background: linear-gradient(90deg, transparent, rgba(217,164,65,.6) 8%, rgba(217,164,65,.6) 92%, transparent)"></div>
+          <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-5">
+            <a class="era-pill relative block" href="story.html#before">
+              <span class="dot block h-6 w-6 rounded-full" style="background:var(--gold);box-shadow:0 0 0 6px rgba(217,164,65,.18)"></span>
+              <p class="font-display" style="font-size:1.6rem;margin-top:var(--s-3);letter-spacing:-.02em">Before Memory</p>
+              <p style="font-size:.95rem;opacity:.7;margin-top:.25rem">Oral history & origins</p>
+            </a>
+            <a class="era-pill relative block" href="story.html#era-1800s">
+              <span class="dot block h-6 w-6 rounded-full" style="background:var(--paper);box-shadow:0 0 0 6px rgba(246,239,227,.12)"></span>
+              <p class="font-display" style="font-size:1.6rem;margin-top:var(--s-3);letter-spacing:-.02em">1800s</p>
+              <p style="font-size:.95rem;opacity:.7;margin-top:.25rem">The first written names</p>
+            </a>
+            <a class="era-pill relative block" href="story.html#era-1900s">
+              <span class="dot block h-6 w-6 rounded-full" style="background:var(--paper);box-shadow:0 0 0 6px rgba(246,239,227,.12)"></span>
+              <p class="font-display" style="font-size:1.6rem;margin-top:var(--s-3);letter-spacing:-.02em">1900 – 1949</p>
+              <p style="font-size:.95rem;opacity:.7;margin-top:.25rem">Land, labor & faith</p>
+            </a>
+            <a class="era-pill relative block" href="story.html#era-1950s">
+              <span class="dot block h-6 w-6 rounded-full" style="background:var(--paper);box-shadow:0 0 0 6px rgba(246,239,227,.12)"></span>
+              <p class="font-display" style="font-size:1.6rem;margin-top:var(--s-3);letter-spacing:-.02em">1950 – 1999</p>
+              <p style="font-size:.95rem;opacity:.7;margin-top:.25rem">Moving, marching, building</p>
+            </a>
+            <a class="era-pill relative block" href="story.html#era-2000s">
+              <span class="dot block h-6 w-6 rounded-full" style="background:var(--clay);box-shadow:0 0 0 6px rgba(181,83,47,.25)"></span>
+              <p class="font-display" style="font-size:1.6rem;margin-top:var(--s-3);letter-spacing:-.02em">2000 – Today</p>
+              <p style="font-size:.95rem;opacity:.7;margin-top:.25rem">The next generations</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REUNION PREVIEW -->
+    <section style="padding-block: var(--s-8)">
+      <div class="wrap grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+        <div class="reveal">
+          <p class="eyebrow">The 2027 reunion</p>
+          <h2 style="font-size: clamp(2.4rem, 5.5vw, 4rem); margin-top: var(--s-3)">Save the date.<br><em>Pull up a chair.</em></h2>
+          <p class="lede" style="margin-top: var(--s-4)">Three days of food, music, worship and catching up. Bring the babies, bring the elders, bring the old photos.</p>
+          <div class="card" style="margin-top: var(--s-5); padding: var(--s-4); display:flex; gap: var(--s-4); align-items:center">
+            <div class="text-center" style="padding: var(--s-2) var(--s-3); border-radius: 14px; background: var(--clay); color: var(--paper); line-height:1">
+              <span style="font-size:.7rem;letter-spacing:.2em;font-weight:700">JULY</span>
+              <b class="font-display block" style="font-size:2.4rem;font-weight:500;margin-top:.2rem">16–18</b>
+              <span style="font-size:.75rem;font-weight:600">2027</span>
+            </div>
+            <div>
+              <p class="font-display" style="font-size:1.35rem;letter-spacing:-.02em;line-height:1.2">[Venue Name]</p>
+              <p style="color:var(--ink-soft);font-size:.95rem">[City, State] · Details on the events page</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-3" style="margin-top: var(--s-5)">
+            <a class="btn" href="events.html">See the full schedule
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <ol class="grid gap-4 reveal" style="list-style:none;padding:0;margin:0">
+          <li class="card" style="padding: var(--s-4) var(--s-5); display:grid; grid-template-columns:auto 1fr; gap: var(--s-4); align-items:start">
+            <span class="font-display" style="font-size:.9rem;font-weight:600;color:var(--clay);padding-top:.3rem">FRI</span>
+            <div><h3 style="font-size:1.6rem">Welcome Home Fish Fry</h3><p style="color:var(--ink-soft);margin-top:.35rem">Name tags, family-tree wall and the first round of hugs. Evening, at the hospitality hotel.</p></div>
+          </li>
+          <li class="card" style="padding: var(--s-4) var(--s-5); display:grid; grid-template-columns:auto 1fr; gap: var(--s-4); align-items:start; margin-left: clamp(0px, 4vw, 3rem)">
+            <span class="font-display" style="font-size:.9rem;font-weight:600;color:var(--clay);padding-top:.3rem">SAT</span>
+            <div><h3 style="font-size:1.6rem">Family Picnic & Banquet</h3><p style="color:var(--ink-soft);margin-top:.35rem">Games, the generations photo, then dinner, the elders’ tribute and dancing.</p></div>
+          </li>
+          <li class="card" style="padding: var(--s-4) var(--s-5); display:grid; grid-template-columns:auto 1fr; gap: var(--s-4); align-items:start; margin-left: clamp(0px, 8vw, 6rem)">
+            <span class="font-display" style="font-size:.9rem;font-weight:600;color:var(--clay);padding-top:.3rem">SUN</span>
+            <div><h3 style="font-size:1.6rem">Worship & Farewell</h3><p style="color:var(--ink-soft);margin-top:.35rem">Family worship service, memorial moment for those we’ve lost, and a send-off brunch.</p></div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- GALLERY PREVIEW -->
+    <section style="padding-block: 0 var(--s-8)">
+      <div class="wrap">
+        <div class="flex flex-wrap items-end justify-between gap-6 reveal">
+          <div>
+            <p class="eyebrow">Photo gallery</p>
+            <h2 style="font-size: clamp(2.4rem, 5.5vw, 4rem); margin-top: var(--s-3)">Faces we <em>know by heart.</em></h2>
+          </div>
+          <a class="link" href="gallery.html">Open the full gallery
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+        <div class="mosaic grid grid-cols-2 gap-4 md:grid-cols-4 md:grid-rows-2 reveal" style="margin-top: var(--s-6); grid-auto-rows: 220px">
+          <a href="gallery.html" class="photo col-span-2 row-span-2"><img src="https://placehold.co/900x900/1F3A2E/D9A441?text=Reunion+Group+Photo&font=playfair-display" alt="Placeholder: reunion group photo"><div class="cap"><span>Reunion</span><b>The whole crew</b></div></a>
+          <a href="gallery.html" class="photo"><img src="https://placehold.co/500x500/B5532F/F6EFE3?text=Elders&font=playfair-display" alt="Placeholder: elders"><div class="cap"><span>1960s</span><b>Grandma’s porch</b></div></a>
+          <a href="gallery.html" class="photo"><img src="https://placehold.co/500x500/2C5140/E6D6BE?text=Kitchen&font=playfair-display" alt="Placeholder: family kitchen"><div class="cap"><span>Food</span><b>Who made the mac?</b></div></a>
+          <a href="gallery.html" class="photo"><img src="https://placehold.co/500x500/D9A441/1F3A2E?text=Kids&font=playfair-display" alt="Placeholder: kids playing"><div class="cap"><span>Next gen</span><b>The little cousins</b></div></a>
+          <a href="gallery.html" class="photo"><img src="https://placehold.co/500x500/142820/E6D6BE?text=Then+%26+Now&font=playfair-display" alt="Placeholder: then and now photo"><div class="cap"><span>Then &amp; now</span><b>Same smile</b></div></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHARE CTA -->
+    <section style="padding-bottom: var(--s-8)">
+      <div class="wrap">
+        <div class="section-dark card-float reveal" style="border-radius: 28px; padding: clamp(2rem, 6vw, 4.5rem); text-align:center">
+          <p class="eyebrow" style="justify-content:center">Every name belongs here</p>
+          <h2 style="font-size: clamp(2.2rem, 5vw, 3.6rem); margin: var(--s-3) auto 0; max-width: 18ch">Got an old photo or <em>a story to tell?</em></h2>
+          <p class="lede" style="margin: var(--s-4) auto 0">Send it in. A shoebox photo, a recipe card, a funeral program, a story Granddaddy used to tell — it all helps fill in our history.</p>
+          <div class="flex flex-wrap justify-center gap-3" style="margin-top: var(--s-5)">
+            <a class="btn btn-light" href="story.html#share">Share a story</a>
+            <a class="btn btn-clay" href="gallery.html#upload">Send photos</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>

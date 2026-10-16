@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Our Story · Greggs · Johnson · Brown Family</title>
+  <meta name="description" content="The history of the Greggs, Johnson and Brown family, era by era — from oral tradition to today.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/tw-config.js"></script>
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    /* Era rail */
+    .era-rail { position: sticky; top: 92px; z-index: 20; min-width: 0; }
+    .timeline-main { min-width: 0; }
+    .entry .polaroid { max-width: 260px; }
+    .era-rail-inner {
+      display: flex; gap: .4rem; overflow-x: auto; padding: .5rem; border-radius: 999px; scrollbar-width: none;
+      background: rgba(246,239,227,.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      box-shadow: var(--sh-2), inset 0 0 0 1px rgba(31,58,46,.08);
+    }
+    .era-rail-inner::-webkit-scrollbar { display: none; }
+    .era-link {
+      flex: none; text-decoration: none; padding: .55rem 1rem; border-radius: 999px; font-weight: 600; font-size: .875rem; color: var(--ink-soft);
+      transition: transform .4s var(--ease-spring); white-space: nowrap;
+    }
+    .era-link:hover { color: var(--leaf); }
+    .era-link:active { transform: scale(.95); }
+    .era-link.active { background: var(--leaf); color: var(--paper); }
+    .era-link .yr { font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; opacity: .7; margin-left: .35rem; }
+    @media (min-width: 1024px) {
+      .era-rail { top: 120px; align-self: start; }
+      .era-rail-inner { flex-direction: column; border-radius: 22px; padding: .6rem; overflow: visible; }
+      .era-link { padding: .8rem 1rem; border-radius: 14px; display: flex; justify-content: space-between; gap: 1rem; }
+    }
+
+    /* Era header */
+    .era { scroll-margin-top: 170px; }
+    @media (min-width: 1024px) { .era { scroll-margin-top: 110px; } }
+    .era-num {
+      font-family: 'Fraunces', serif; font-weight: 300; letter-spacing: -0.05em; line-height: .85;
+      font-size: clamp(4rem, 13vw, 9rem); color: transparent; -webkit-text-stroke: 1.5px var(--clay);
+      font-variation-settings: "SOFT" 100;
+    }
+
+    /* Timeline entries */
+    .entries { position: relative; padding-left: 2.25rem; }
+    .entries::before { content: ""; position: absolute; left: 7px; top: .6rem; bottom: 0; width: 2px; background: linear-gradient(var(--paper-3), var(--paper-3) 85%, transparent); }
+    .entry { position: relative; }
+    .entry::before {
+      content: ""; position: absolute; left: calc(-2.25rem + 1px); top: .55rem; width: 14px; height: 14px; border-radius: 50%;
+      background: var(--paper); box-shadow: inset 0 0 0 3px var(--clay), 0 0 0 5px var(--paper);
+    }
+    .entry-year { font-family: 'Fraunces', serif; font-style: italic; color: var(--clay); font-size: 1.15rem; }
+    .entry h3 { font-size: clamp(1.6rem, 3vw, 2.1rem); margin-top: .25rem; }
+    .entry p.body { color: var(--ink-soft); margin-top: var(--s-2); max-width: 40rem; }
+    .entry-add {
+      display: flex; gap: var(--s-3); align-items: center; padding: var(--s-4); border-radius: var(--radius);
+      border: 1.5px dashed rgba(31,58,46,.25); text-decoration: none; color: var(--ink-soft);
+      transition: transform .45s var(--ease-spring);
+    }
+    .entry-add:hover { color: var(--leaf); border-color: var(--leaf); transform: translateX(4px); }
+    .entry-add:active { transform: scale(.99); }
+    .entry-add:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+    .entry-add .plus { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--paper-2); flex: none; font-size: 1.3rem; color: var(--clay); }
+    .entries .entry-add-wrap::before { display: none; }
+
+    .pull {
+      font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.3; letter-spacing: -0.02em;
+      padding-left: var(--s-4); border-left: 3px solid var(--gold); color: var(--leaf);
+    }
+  </style>
+</head>
+<body>
+  <header id="site-header"></header>
+
+  <main>
+    <!-- HERO -->
+    <section class="relative isolate" style="padding-block: var(--s-7)">
+      <div class="hero-bg"></div>
+      <div class="wrap grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-end">
+        <div>
+          <p class="eyebrow rise d1">Our story</p>
+          <h1 class="rise d2" style="font-size: clamp(3rem, 8vw, 6rem); margin-top: var(--s-4)">Every year<br>holds <em>a name.</em></h1>
+        </div>
+        <div class="rise d3">
+          <p class="lede">Our family was here before the census takers, before the courthouse ledgers, before anyone thought to write us down. What we know came first through voices — and now we’re setting it down, era by era, so no one is forgotten.</p>
+          <p style="margin-top: var(--s-3); font-size: .95rem; color: var(--ink-soft)">This is a living history. If you know a date, a name or a story, <a class="link" href="#share">add it here</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="quilt"></div>
+
+    <!-- TIMELINE -->
+    <section style="padding-block: var(--s-7) var(--s-8)">
+      <div class="wrap grid gap-10 lg:grid-cols-[230px_1fr] lg:gap-16">
+        <aside class="era-rail" aria-label="Jump to an era">
+          <nav class="era-rail-inner">
+            <a class="era-link" href="#before">Before Memory <span class="yr">∞</span></a>
+            <a class="era-link" href="#era-1800s">The 1800s <span class="yr">1800</span></a>
+            <a class="era-link" href="#era-1900s">Early 1900s <span class="yr">1900</span></a>
+            <a class="era-link" href="#era-1950s">Mid-century <span class="yr">1950</span></a>
+            <a class="era-link" href="#era-2000s">Today <span class="yr">2000</span></a>
+            <a class="era-link" href="#share">Add a story <span class="yr">+</span></a>
+          </nav>
+        </aside>
+
+        <div class="grid timeline-main" style="gap: var(--s-8)">
+
+          <!-- ============ ERA: BEFORE MEMORY ============ -->
+          <article id="before" class="era">
+            <div class="section-dark card-float reveal" style="border-radius: 28px; padding: clamp(1.75rem, 5vw, 3.5rem)">
+              <p class="eyebrow">Era one · Time out of mind</p>
+              <h2 style="font-size: clamp(2.4rem, 5.5vw, 4rem); margin-top: var(--s-3)">Before <em>the records.</em></h2>
+              <p class="lede" style="margin-top: var(--s-4)">The oldest part of our story lives in songs, sayings and the stories elders told on porches and at kitchen tables. Dates are unknown here — but the people were real, and they are ours.</p>
+              <div class="grid gap-5 md:grid-cols-3" style="margin-top: var(--s-6)">
+                <div style="padding: var(--s-4); border-radius: 16px; background: rgba(246,239,227,.06); box-shadow: inset 0 0 0 1px rgba(246,239,227,.12)">
+                  <p class="entry-year" style="color:var(--gold)">Origins</p>
+                  <h3 style="font-size:1.5rem;margin-top:.3rem">Where we began</h3>
+                  <p style="margin-top:var(--s-2);font-size:.95rem;opacity:.75">Record what the family has always said about where our earliest ancestors came from — the land, the people, the language.</p>
+                </div>
+                <div style="padding: var(--s-4); border-radius: 16px; background: rgba(246,239,227,.06); box-shadow: inset 0 0 0 1px rgba(246,239,227,.12)">
+                  <p class="entry-year" style="color:var(--gold)">The first names</p>
+                  <h3 style="font-size:1.5rem;margin-top:.3rem">Those we remember</h3>
+                  <p style="margin-top:var(--s-2);font-size:.95rem;opacity:.75">The oldest names handed down — first names, nicknames, “the one they called…” — even when no paper ever held them.</p>
+                </div>
+                <div style="padding: var(--s-4); border-radius: 16px; background: rgba(246,239,227,.06); box-shadow: inset 0 0 0 1px rgba(246,239,227,.12)">
+                  <p class="entry-year" style="color:var(--gold)">Oral tradition</p>
+                  <h3 style="font-size:1.5rem;margin-top:.3rem">Stories they told</h3>
+                  <p style="margin-top:var(--s-2);font-size:.95rem;opacity:.75">Sayings, songs, recipes and lessons that came down unbroken. Note who told it and who they heard it from.</p>
+                </div>
+              </div>
+              <p class="pull" style="margin-top: var(--s-6); color: var(--paper)">“Add a saying the elders always repeated here — the words that tie all three families together.”<span style="display:block;margin-top:.6rem;font-family:Hanken Grotesk;font-style:normal;font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)">— [Elder’s name], as told to [name]</span></p>
+            </div>
+          </article>
+
+          <!-- ============ ERA: 1800s ============
+               To add an entry: copy one <div class="entry">…</div> block below and change the year, title and text. -->
+          <article id="era-1800s" class="era">
+            <header class="grid gap-4 md:grid-cols-[auto_1fr] md:items-end reveal">
+              <span class="era-num">1800s</span>
+              <div>
+                <p class="eyebrow">Era two</p>
+                <h2 style="font-size: clamp(2rem, 4.5vw, 3rem); margin-top: var(--s-2)">The first <em>written names.</em></h2>
+              </div>
+            </header>
+            <p class="lede reveal" style="margin-top: var(--s-4)">The century when our people first begin to appear in ledgers, bibles, deeds and censuses — sometimes only as a first name, sometimes not at all. Every record found here was hard won.</p>
+
+            <div class="entries grid" style="gap: var(--s-6); margin-top: var(--s-6)">
+              <div class="entry reveal">
+                <p class="entry-year">c. 18__</p>
+                <h3>The earliest known record</h3>
+                <p class="body">Describe the first document where a Greggs, Johnson or Brown ancestor appears — what it was, where it was found and what it tells us about their life.</p>
+              </div>
+              <div class="entry reveal">
+                <div class="grid gap-6 md:grid-cols-[1fr_220px] md:items-start">
+                  <div>
+                    <p class="entry-year">18__</p>
+                    <h3>A new beginning</h3>
+                    <p class="body">Tell what this turning point meant for the family — where they lived, the work they took up, and the first land or home they could call their own.</p>
+                  </div>
+                  <figure class="polaroid" style="transform: rotate(2deg)">
+                    <div class="photo" style="aspect-ratio: 4/5"><img src="https://placehold.co/400x500/2C5140/E6D6BE?text=Tintype&font=playfair-display" alt="Placeholder: historic family photograph"></div>
+                    <figcaption>[Caption & year]</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="entry reveal">
+                <p class="entry-year">18__</p>
+                <h3>When the three families met</h3>
+                <p class="body">The first marriage, church or community that brought the Greggs, Johnson and Brown names together.</p>
+              </div>
+              <div class="entry entry-add-wrap reveal">
+                <a class="entry-add" href="#share" data-era="The 1800s"><span class="plus">+</span><span><b style="color:var(--ink)">Know something from the 1800s?</b><br><span style="font-size:.95rem">Add a name, date, record or story to this era.</span></span></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- ============ ERA: 1900–1949 ============ -->
+          <article id="era-1900s" class="era">
+            <header class="grid gap-4 md:grid-cols-[auto_1fr] md:items-end reveal">
+              <span class="era-num">1900</span>
+              <div>
+                <p class="eyebrow">Era three · 1900 – 1949</p>
+                <h2 style="font-size: clamp(2rem, 4.5vw, 3rem); margin-top: var(--s-2)">Land, labor <em>& faith.</em></h2>
+              </div>
+            </header>
+            <p class="lede reveal" style="margin-top: var(--s-4)">Farms and homeplaces, churches built by hand, and big families around small tables. Some stayed; some set out to find work in new cities.</p>
+
+            <div class="entries grid" style="gap: var(--s-6); margin-top: var(--s-6)">
+              <div class="entry reveal">
+                <p class="entry-year">19__</p>
+                <h3>The homeplace</h3>
+                <p class="body">Describe the family home or land everyone remembers — who built it, who lived there and what happened on that porch.</p>
+              </div>
+              <div class="entry reveal">
+                <p class="entry-year">19__</p>
+                <h3>The church on the hill</h3>
+                <p class="body">The congregation that anchored the family — founding members, weddings, homecomings and the hymns still sung today.</p>
+              </div>
+              <div class="entry reveal">
+                <div class="photo card-float" style="aspect-ratio: 16/8; min-height: 280px">
+                  <img src="https://placehold.co/1100x550/1F3A2E/D9A441?text=Family+Farm+c.+1920s&font=playfair-display" alt="Placeholder: family farm in the 1920s">
+                  <div class="cap"><span>c. 1920s</span><b>[Add caption: who’s pictured, where]</b></div>
+                </div>
+              </div>
+              <div class="entry reveal">
+                <p class="entry-year">19__</p>
+                <h3>Setting out</h3>
+                <p class="body">The relatives who moved north, west or to the city — where they landed and how they kept in touch with home.</p>
+              </div>
+              <div class="entry entry-add-wrap reveal">
+                <a class="entry-add" href="#share" data-era="1900 – 1949"><span class="plus">+</span><span><b style="color:var(--ink)">Know something from 1900 – 1949?</b><br><span style="font-size:.95rem">Add a name, date, record or story to this era.</span></span></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- ============ ERA: 1950–1999 ============ -->
+          <article id="era-1950s" class="era">
+            <header class="grid gap-4 md:grid-cols-[auto_1fr] md:items-end reveal">
+              <span class="era-num">1950</span>
+              <div>
+                <p class="eyebrow">Era four · 1950 – 1999</p>
+                <h2 style="font-size: clamp(2rem, 4.5vw, 3rem); margin-top: var(--s-2)">Moving, marching, <em>building.</em></h2>
+              </div>
+            </header>
+            <p class="lede reveal" style="margin-top: var(--s-4)">Service, schooling, careers and causes. The decades when the family spread out — and decided to start coming back together every summer.</p>
+
+            <div class="entries grid" style="gap: var(--s-6); margin-top: var(--s-6)">
+              <div class="entry reveal">
+                <p class="entry-year">19__</p>
+                <h3>Firsts in the family</h3>
+                <p class="body">The first college graduate, the first business owner, the first to serve — the milestones that made everyone proud.</p>
+              </div>
+              <div class="entry reveal">
+                <div class="grid gap-6 md:grid-cols-[1fr_1fr] md:items-center">
+                  <div>
+                    <p class="entry-year">19__</p>
+                    <h3>The very first reunion</h3>
+                    <p class="body">Who had the idea, where it was held, how many came — and what was on the menu.</p>
+                  </div>
+                  <figure class="polaroid" style="transform: rotate(-2deg)">
+                    <div class="photo" style="aspect-ratio: 5/4"><img src="https://placehold.co/600x480/B5532F/F6EFE3?text=First+Reunion&font=playfair-display" alt="Placeholder: first family reunion photo"></div>
+                    <figcaption>[First reunion, year]</figcaption>
+                  </figure>
+                </div>
+              </div>
+              <div class="entry reveal">
+                <p class="pull">“Add a favorite memory from this era — something someone said that the whole family still quotes.”</p>
+              </div>
+              <div class="entry entry-add-wrap reveal">
+                <a class="entry-add" href="#share" data-era="1950 – 1999"><span class="plus">+</span><span><b style="color:var(--ink)">Know something from 1950 – 1999?</b><br><span style="font-size:.95rem">Add a name, date, record or story to this era.</span></span></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- ============ ERA: 2000–TODAY ============ -->
+          <article id="era-2000s" class="era">
+            <header class="grid gap-4 md:grid-cols-[auto_1fr] md:items-end reveal">
+              <span class="era-num">2000</span>
+              <div>
+                <p class="eyebrow">Era five · 2000 – Today</p>
+                <h2 style="font-size: clamp(2rem, 4.5vw, 3rem); margin-top: var(--s-2)">The next <em>generations.</em></h2>
+              </div>
+            </header>
+            <p class="lede reveal" style="margin-top: var(--s-4)">New babies, new names, new branches — and the elders we’ve said goodbye to. The story keeps being written by all of us.</p>
+
+            <div class="entries grid" style="gap: var(--s-6); margin-top: var(--s-6)">
+              <div class="entry reveal">
+                <p class="entry-year">20__</p>
+                <h3>Honoring our elders</h3>
+                <p class="body">A place to remember the matriarchs and patriarchs we’ve lost, and the wisdom they left behind.</p>
+              </div>
+              <div class="entry reveal">
+                <p class="entry-year">20__</p>
+                <h3>Welcome to the family</h3>
+                <p class="body">New marriages, new births and new branches on the tree. List the newest members here.</p>
+              </div>
+              <div class="entry reveal">
+                <p class="entry-year">2027</p>
+                <h3>The next reunion</h3>
+                <p class="body">July 16 – 18, 2027. The next chapter gets written together. <a class="link" href="events.html">See the reunion plans</a></p>
+              </div>
+              <div class="entry entry-add-wrap reveal">
+                <a class="entry-add" href="#share" data-era="2000 – Today"><span class="plus">+</span><span><b style="color:var(--ink)">Have a recent milestone?</b><br><span style="font-size:.95rem">Births, weddings, graduations, homegoings — add them here.</span></span></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- ============ SHARE A STORY ============ -->
+          <article id="share" class="era">
+            <div class="card card-float reveal" style="padding: clamp(1.75rem, 5vw, 3.5rem); border-radius: 28px">
+              <div class="grid gap-10 lg:grid-cols-[1fr_1.3fr]">
+                <div>
+                  <p class="eyebrow">Add to our history</p>
+                  <h2 style="font-size: clamp(2rem, 4.5vw, 3rem); margin-top: var(--s-3)">Share a <em>story.</em></h2>
+                  <p style="color: var(--ink-soft); margin-top: var(--s-3)">Big or small, certain or “I think it was…” — send it in. The family historian will review it and add it to the right era.</p>
+                </div>
+                <form id="story-form" class="grid gap-4">
+                  <div class="grid gap-4 sm:grid-cols-2">
+                    <div class="field"><label for="s-name">Your name</label><input id="s-name" name="name" required autocomplete="name"></div>
+                    <div class="field"><label for="s-branch">Family branch</label>
+                      <select id="s-branch" name="branch"><option>Greggs</option><option>Johnson</option><option>Brown</option><option>More than one</option></select></div>
+                  </div>
+                  <div class="grid gap-4 sm:grid-cols-2">
+                    <div class="field"><label for="s-era">Era</label>
+                      <select id="s-era" name="era"><option>Before Memory</option><option>The 1800s</option><option>1900 – 1949</option><option>1950 – 1999</option><option>2000 – Today</option></select></div>
+                    <div class="field"><label for="s-year">Year (if known)</label><input id="s-year" name="year" inputmode="numeric" placeholder="e.g. 1923 or “around 1900”"></div>
+                  </div>
+                  <div class="field"><label for="s-story">The story</label><textarea id="s-story" name="story" rows="5" required placeholder="Who, where, when — and who told you?"></textarea></div>
+                  <div><button class="btn btn-clay" type="submit">Send to the family historian
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+                </form>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer"></footer>
+  <script src="assets/site.js"></script>
+  <script>
+    // Scroll-spy for the era rail
+    const links = [...document.querySelectorAll('.era-link')];
+    const spy = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+        const active = links.find(l => l.classList.contains('active'));
+        if (active && innerWidth < 1024) active.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    document.querySelectorAll('.era').forEach(s => spy.observe(s));
+
+    // "Add" links pre-select the era in the form
+    document.querySelectorAll('[data-era]').forEach(a => a.addEventListener('click', () => {
+      document.getElementById('s-era').value = a.dataset.era;
+    }));
+
+    // Story form → opens an email to the family historian (swap for a form service later)
+    document.getElementById('story-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const f = new FormData(e.target);
+      const body = `Name: ${f.get('name')}\nBranch: ${f.get('branch')}\nEra: ${f.get('era')}\nYear: ${f.get('year')}\n\n${f.get('story')}`;
+      location.href = `mailto:reunion@example.com?subject=${encodeURIComponent('Family story — ' + f.get('era'))}&body=${encodeURIComponent(body)}`;
+    });
+  </script>
+</body>
+</html>
