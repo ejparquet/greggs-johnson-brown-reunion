@@ -175,7 +175,11 @@
     @media (min-width: 720px) {
       .pd-grid { grid-template-columns: 320px 1fr; }
       .pd-photo { height: auto; min-height: 100%; }
-      .pd-body { padding: var(--s-6) var(--s-5) var(--s-5); }
+      .pd-body {
+        padding: var(--s-6) var(--s-5) var(--s-5);
+        max-height: calc(100vh - 32px); max-height: calc(100dvh - 32px);
+        overflow-y: auto; overscroll-behavior: contain;
+      }
     }
     /* phones: slide up as a bottom sheet */
     @media (max-width: 719px) {
