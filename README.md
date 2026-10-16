@@ -20,6 +20,10 @@ The family reunion website: our history, photo gallery, family trees and reunion
 - **Email address:** forms open an email to `reunion@example.com` — search and replace it with the real address.
 - Anything in `[brackets]` or written as `18__` / `19__` is a placeholder.
 
+## Publishing updates
+
+Pages load their styles and scripts with a version number (e.g. `assets/site.js?v=20261016`). After changing any file in `assets/`, bump that number in all four HTML files so visitors' browsers fetch the new versions instead of mixing old and new files.
+
 ## Running locally
 
 ```bash
