@@ -53,17 +53,30 @@
     .family-card .go svg { transition: transform .45s var(--ease-spring); }
     .family-card:hover .go svg { transform: translateY(3px); }
 
-    .tree { margin-top: var(--s-6); padding: clamp(1.25rem, 4vw, 3rem); border-radius: 28px; background: var(--paper-2); box-shadow: inset 0 0 0 1px rgba(31,58,46,.08), inset 0 2px 12px rgba(31,58,46,.05); }
+    .tree { margin-top: var(--s-6); padding: clamp(.75rem, 4vw, 3rem); border-radius: 28px; background: var(--paper-2); box-shadow: inset 0 0 0 1px rgba(31,58,46,.08), inset 0 2px 12px rgba(31,58,46,.05); }
     .tree[hidden] { display: none; }
     .tree { scroll-margin-top: 100px; }
-    .gen { text-align: center; }
+    .tree-in { position: relative; }
+    .tree-in > :not(.tree-lines) { position: relative; z-index: 1; }
+    .tree-lines { position: absolute; left: 0; top: 0; z-index: 0; overflow: visible; pointer-events: none; fill: var(--gold); stroke: none; }
+    .tree-lines path { fill: none; stroke: var(--gold); stroke-width: 2; stroke-linecap: round; }
+    .tree-head { margin-bottom: var(--s-5); }
+    .gen + .gen { margin-top: var(--s-6); }
     .gen-label {
-      display: inline-block; font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; font-weight: 700;
-      color: var(--paper); background: var(--leaf); padding: .45rem .9rem; border-radius: 999px; box-shadow: var(--sh-1);
+      display: flex; align-items: center; gap: .75rem; margin: 0 0 var(--s-3);
+      font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; font-weight: 700; color: var(--leaf);
     }
-    .gen-row { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-4) var(--s-5); margin-top: var(--s-4); }
-    .trunk { width: 2px; height: var(--s-6); margin: var(--s-3) auto; background: linear-gradient(var(--clay), var(--gold)); border-radius: 2px; position: relative; }
-    .trunk::after { content: ""; position: absolute; left: 50%; bottom: -4px; width: 9px; height: 9px; margin-left: -4.5px; border-radius: 50%; background: var(--gold); }
+    .gen-label::after { content: ""; flex: 1; height: 1px; background: rgba(31,58,46,.14); }
+    .gen-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: var(--s-4); }
+    .cluster {
+      display: flex; flex-direction: column; align-items: center; gap: var(--s-2);
+      padding: var(--s-2) var(--s-2) var(--s-3); border-radius: 22px;
+      background: #F4ECDF; box-shadow: inset 0 0 0 1px rgba(31,58,46,.08), 0 1px 2px rgba(31,58,46,.04);
+    }
+    .cluster-root { background: none; box-shadow: none; padding: 0; }
+    .cluster-label { margin: 0; font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--clay); text-align: center; max-width: 34ch; line-height: 1.4; }
+    .cluster-units { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-3) var(--s-4); }
+    @media (min-width: 640px) { .cluster { padding: var(--s-3) var(--s-3) var(--s-4); } }
     .unit { display: flex; align-items: stretch; }
     .bond { flex: none; display: grid; place-items: center; width: 30px; position: relative; }
     .bond::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; background: var(--gold); }
@@ -71,7 +84,7 @@
 
     /* Person card — full-bleed portrait, name over a dark fade, kebab "more" icon */
     .person {
-      position: relative; display: block; width: min(152px, calc((100vw - 118px) / 2)); aspect-ratio: 360 / 455; overflow: hidden; isolation: isolate;
+      position: relative; display: block; width: min(152px, calc((100vw - 130px) / 2)); aspect-ratio: 360 / 455; overflow: hidden; isolation: isolate;
       border-radius: 14px; background: var(--leaf); cursor: pointer; text-align: left;
       box-shadow: var(--sh-2);
       transition: transform .5s var(--ease-spring);
@@ -88,6 +101,7 @@
       position: absolute; right: 6%; bottom: 9%; z-index: 2; display: grid; place-items: center; width: 26px; height: 32px; border-radius: 999px; color: #fff;
       transition: transform .45s var(--ease-spring);
     }
+    .person-line { position: absolute; top: 8px; left: 8px; z-index: 2; padding: .2rem .55rem; border-radius: 999px; background: rgba(246,239,227,.92); color: var(--leaf); font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
     .person:hover { transform: translateY(-5px); }
     .person:hover img { transform: scale(1.05); }
     .person:hover .person-kebab { transform: scale(1.15); }
@@ -114,17 +128,46 @@
     .pd-facts dd { margin: .15rem 0 0; font-family: 'Fraunces', serif; font-size: 1.05rem; }
     .pd-bio { margin-top: var(--s-4); display: grid; gap: var(--s-2); color: #4A4137; }
     .pd-bio.empty { padding: var(--s-3) var(--s-4); border-radius: 16px; border: 1.5px dashed rgba(31,58,46,.22); color: var(--ink-soft); }
-    .pd-spouse {
-      display: flex; align-items: center; gap: var(--s-2); width: 100%; margin-top: var(--s-4); padding: var(--s-2); border: 0; border-radius: 16px; cursor: pointer; text-align: left;
-      background: transparent; font: inherit; color: inherit; box-shadow: inset 0 0 0 1.5px rgba(31,58,46,.14);
+    .pd-back {
+      display: inline-flex; align-items: center; gap: .45rem; margin-bottom: var(--s-3); padding: .45rem .8rem .45rem .6rem; border: 0; border-radius: 999px; cursor: pointer;
+      background: var(--paper-2); color: var(--leaf); font: 600 .85rem/1.2 'Hanken Grotesk', sans-serif; transition: transform .4s var(--ease-spring);
+    }
+    .pd-back:hover { background: var(--paper-3); }
+    .pd-back:active { transform: scale(.96); }
+    .pd-back:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+    .pd-family { margin-top: var(--s-5); padding-top: var(--s-4); border-top: 1px solid rgba(31,58,46,.1); display: grid; gap: var(--s-3); }
+    .rel-group h4 { margin: 0 0 .5rem; font: 700 .7rem/1 'Hanken Grotesk', sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--clay); }
+    .rel-group h4 span { display: inline-grid; place-items: center; min-width: 1.4rem; height: 1.4rem; margin-left: .35rem; padding: 0 .35rem; border-radius: 999px; background: var(--paper-2); color: var(--leaf); letter-spacing: 0; }
+    .rel-list { display: grid; gap: .5rem; }
+    @media (min-width: 960px) { .rel-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    .rel {
+      display: flex; align-items: center; gap: .7rem; width: 100%; padding: .45rem .7rem .45rem .45rem; border: 0; border-radius: 14px; cursor: pointer; text-align: left;
+      background: transparent; font: inherit; color: inherit; box-shadow: inset 0 0 0 1.5px rgba(31,58,46,.12);
       transition: transform .45s var(--ease-spring);
     }
-    .pd-spouse:hover { box-shadow: inset 0 0 0 1.5px var(--leaf); }
-    .pd-spouse:hover svg { transform: translateX(3px); }
-    .pd-spouse svg { transition: transform .45s var(--ease-spring); }
-    .pd-spouse:active { transform: scale(.98); }
-    .pd-spouse:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
-    .pd-spouse img { width: 44px; height: 44px; border-radius: 12px; object-fit: cover; }
+    .rel img { width: 40px; height: 40px; flex: none; border-radius: 10px; object-fit: cover; }
+    .rel-text { flex: 1; min-width: 0; line-height: 1.25; }
+    .rel-text b { display: block; font-family: 'Fraunces', serif; font-weight: 500; font-size: 1rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .rel-text span { font-size: .78rem; color: var(--ink-soft); }
+    .rel svg { flex: none; transition: transform .45s var(--ease-spring); }
+    .rel:hover { box-shadow: inset 0 0 0 1.5px var(--leaf); }
+    .rel:hover svg { transform: translateX(3px); }
+    .rel:active { transform: scale(.98); }
+    .rel:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+    .rel-empty { margin: 0; font-size: .9rem; color: var(--ink-soft); }
+
+    .tree-search { position: relative; max-width: 560px; }
+    .tree-search-icon { position: absolute; left: 1.1rem; top: 1.05rem; color: var(--ink-soft); pointer-events: none; }
+    .tree-search input {
+      width: 100%; padding: .95rem 1.2rem .95rem 3rem; border: 0; border-radius: 999px; font: inherit; font-size: 1rem; color: var(--ink);
+      background: #FBF7F0; box-shadow: var(--sh-1), inset 0 0 0 1.5px rgba(31,58,46,.14);
+    }
+    .tree-search input:hover { box-shadow: var(--sh-1), inset 0 0 0 1.5px rgba(31,58,46,.35); }
+    .tree-search input:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--leaf), 0 0 0 4px rgba(217,164,65,.35); }
+    .search-results {
+      position: absolute; left: 0; right: 0; top: calc(100% + .5rem); z-index: 30; display: grid; gap: .35rem; padding: .5rem;
+      max-height: 360px; overflow-y: auto; border-radius: 20px; background: #FBF7F0; box-shadow: var(--sh-3);
+    }
     .pd-close { position: absolute; top: 14px; right: 14px; z-index: 5; background: rgba(246,239,227,.92); color: var(--leaf); box-shadow: var(--sh-1); }
     .pd-close:hover { background: var(--clay); color: var(--paper); }
     @media (min-width: 720px) {
@@ -138,8 +181,14 @@
       .pd-grid { max-height: 90dvh; overflow-y: auto; }
       .pd-body { overflow: visible; }
     }
-    @media (min-width: 640px) { .person { width: 200px; } .person-name { font-size: 1.45rem; } }
-    @media (min-width: 1024px) { .person { width: 220px; } .person-name { font-size: 1.6rem; } }
+    @media (min-width: 640px) { .person { width: 176px; } .person-name { font-size: 1.3rem; } }
+    @media (min-width: 1024px) { .person { width: 184px; } .person-name { font-size: 1.35rem; } }
+    /* phones: someone shown with two spouses stacks vertically */
+    @media (max-width: 639px) {
+      .unit-multi { flex-direction: column; align-items: center; }
+      .unit-multi .bond { width: auto; height: 26px; }
+      .unit-multi .bond::before { left: 50%; right: auto; top: 0; bottom: 0; width: 2px; height: auto; margin-left: -1px; }
+    }
     .living { display: inline-block; font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 700; color: var(--leaf); background: rgba(31,58,46,.09); padding: .15rem .5rem; border-radius: 999px; }
     /* very small phones: stack couples vertically */
     @media (max-width: 359px) {
@@ -206,7 +255,13 @@
             </div>
             <p class="lede">Each family line is laid out by generation — oldest at the top. Know a missing name or date? <a class="link" href="story.html#share">Tell us</a>.</p>
           </div>
-          <div class="grid gap-6 md:grid-cols-3" id="family-pick" style="margin-top: var(--s-6)"></div>
+          <div class="tree-search" style="margin-top: var(--s-5)">
+            <label for="person-search" class="sr-only">Find a family member</label>
+            <svg class="tree-search-icon" width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.8"/><path d="m14 14 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <input id="person-search" type="search" placeholder="Find a family member by name or place…" autocomplete="off" aria-controls="search-results">
+            <div id="search-results" class="search-results" hidden aria-live="polite"></div>
+          </div>
+          <div class="grid gap-6 md:grid-cols-3" id="family-pick" style="margin-top: var(--s-5)"></div>
           <div class="tree" id="tree" hidden aria-live="polite"></div>
         </div>
       </div>
@@ -249,6 +304,7 @@
   <footer id="site-footer"></footer>
   <script src="assets/site.js"></script>
   <script src="assets/ancestors.js"></script>
+  <script src="assets/family-tree.js"></script>
   <script>
     const tiles = [...document.querySelectorAll('.tile')];
     const chips = document.querySelectorAll('[data-filter]');
@@ -265,134 +321,12 @@
       history.replaceState(null, '', c.dataset.filter === 'elders' ? '#ancestors' : location.pathname);
     }));
 
-    // ---------- Family trees ----------
-    const TREES = window.FAMILY_TREES;
-    const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-    const initials = n => n.replace(/[\[\]]/g, '').split(/\s+/).filter(Boolean).map(w => w[0]).slice(0, 2).join('').toUpperCase() || '?';
-    const countPeople = fam => fam.generations.reduce((n, g) => n + g.units.flat().length, 0);
-
-    const photoSrc = (p, fam, w = 360, h = 450) => {
-      const bg = fam.color.slice(1), fg = fam.color === '#D9A441' ? '1F3A2E' : 'F6EFE3';
-      return p.photo || `https://placehold.co/${w}x${h}/${bg}/${fg}?text=${encodeURIComponent(initials(p.name))}&font=playfair-display`;
-    };
-
-    const nameLines = n => {
-      const w = n.trim().split(/\s+/);
-      return w.length > 1 ? [w.slice(0, -1).join(' '), w[w.length - 1]] : w;
-    };
-    const lifeText = p => p.died ? `${p.born || '?'} – ${p.died}` : `born ${p.born || '?'}, living`;
-
-    const personCard = (p, fam, id) => `
-      <article class="person" data-person="${id}" role="button" tabindex="0" aria-haspopup="dialog" aria-label="${esc(p.name)}, ${esc(lifeText(p))}. View details">
-        <img src="${esc(photoSrc(p, fam))}" alt="">
-        <p class="person-name" aria-hidden="true">${nameLines(p.name).map(l => `<span>${esc(l)}</span>`).join('')}</p>
-        <span class="person-kebab" aria-hidden="true"><svg width="4" height="18" viewBox="0 0 4 18" fill="currentColor"><circle cx="2" cy="2" r="2"/><circle cx="2" cy="9" r="2"/><circle cx="2" cy="16" r="2"/></svg></span>
-      </article>`;
-
-    const unitHTML = (unit, fam, gi, ui) => `<div class="unit">${unit.map((p, pi) => personCard(p, fam, `${gi}.${ui}.${pi}`)).join('<div class="bond" aria-hidden="true"><span></span></div>')}</div>`;
-
-    // ---------- Person detail dialog ----------
-    const dialog = document.getElementById('person-dialog');
-    const pdContent = document.getElementById('pd-content');
-    let current = null; // { key, fam }
-
-    const lookup = id => {
-      const [gi, ui, pi] = id.split('.').map(Number);
-      const g = current.fam.generations[gi], unit = g.units[ui];
-      const spouseIdx = unit.length === 2 ? 1 - pi : null;
-      return { p: unit[pi], gen: g.label, spouse: spouseIdx === null ? null : { p: unit[spouseIdx], id: `${gi}.${ui}.${spouseIdx}` } };
-    };
-
-    const openPerson = id => {
-      const { p, gen, spouse } = lookup(id), fam = current.fam;
-      const first = p.name.replace(/[\[\]]/g, '').split(/\s+/)[0];
-      const life = p.died ? `${esc(p.born) || '?'} – ${esc(p.died)}` : `Born ${esc(p.born) || '?'} · Living`;
-      const bio = p.bio
-        ? `<div class="pd-bio">${p.bio.split(/\n\n+/).map(par => `<p>${esc(par)}</p>`).join('')}</div>`
-        : `<div class="pd-bio empty"><p>We haven’t written ${esc(first)}’s story yet. Know where they lived, the work they did, or a memory of them? <a class="link" href="story.html#share">Share it with the family historian</a> and we’ll add it here.</p></div>`;
-      pdContent.innerHTML = `
-        <div class="photo pd-photo"><img src="${esc(photoSrc(p, fam, 640, 800))}" alt="${p.photo ? 'Portrait of ' + esc(p.name) : ''}"></div>
-        <div class="pd-body">
-          <p class="eyebrow">${esc(fam.name)} · ${esc(gen.split('·')[0].trim())}</p>
-          <h3 class="pd-name" id="pd-name">${esc(p.name)}</h3>
-          <p class="pd-life">${life}</p>
-          <dl class="pd-facts">
-            <div><dt>Born</dt><dd>${esc(p.born) || '—'}</dd></div>
-            <div><dt>${p.died ? 'Died' : 'Status'}</dt><dd>${p.died ? esc(p.died) : '<span class="living">Living</span>'}</dd></div>
-            ${p.place ? `<div><dt>Lived in</dt><dd>${esc(p.place)}</dd></div>` : ''}
-          </dl>
-          ${bio}
-          ${spouse ? `
-            <button class="pd-spouse" data-open="${spouse.id}">
-              <img src="${esc(photoSrc(spouse.p, fam, 88, 88))}" alt="">
-              <span style="flex:1"><span style="display:block;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--clay)">Married to</span>
-                <span class="font-display" style="font-size:1.1rem">${esc(spouse.p.name)}</span></span>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" style="margin-right:.5rem"><path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>` : ''}
-          <p style="margin-top:var(--s-4);font-size:.9rem;color:var(--ink-soft)">Have a photo or correction? <a class="link" href="story.html#share">Tell us</a></p>
-        </div>`;
-      if (!dialog.open) dialog.showModal();
-      pdContent.scrollTop = 0; pdContent.querySelector('.pd-body').scrollTop = 0;
-    };
-
-    dialog.addEventListener('click', e => {
-      if (e.target === dialog || e.target.closest('[data-close]')) return dialog.close();
-      const s = e.target.closest('[data-open]'); if (s) openPerson(s.dataset.open);
-    });
-
-    const pick = document.getElementById('family-pick');
-    pick.innerHTML = Object.entries(TREES).map(([key, fam]) => `
-      <button class="family-card card" data-family="${key}" aria-pressed="false" aria-controls="tree" style="--fam:${fam.color}">
-        <span class="mono"${fam.color === '#D9A441' ? ' style="color:var(--leaf)"' : ''}>${fam.letter}</span>
-        <h3 style="font-size:2rem;margin-top:var(--s-4)">${esc(fam.name)}</h3>
-        <p style="margin-top:var(--s-2);color:var(--ink-soft);font-size:.95rem">${esc(fam.blurb)}</p>
-        <p style="margin-top:var(--s-3);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--clay)">${fam.generations.length} generations · ${countPeople(fam)} people</p>
-        <span class="go">View the family tree
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 3v10m-4-4 4 4 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </button>`).join('');
-
-    const tree = document.getElementById('tree');
-    const showTree = (key, scroll = true) => {
-      const fam = TREES[key]; if (!fam) return;
-      pick.querySelectorAll('.family-card').forEach(b => b.setAttribute('aria-pressed', b.dataset.family === key));
-      current = { key, fam };
-      tree.innerHTML = `
-        <div class="tree-in">
-          <div class="flex flex-wrap items-end justify-between gap-4" style="margin-bottom:var(--s-6)">
-            <div>
-              <p class="eyebrow">Family tree</p>
-              <h3 style="font-size:clamp(2rem,4.5vw,3rem);margin-top:var(--s-2)">${esc(fam.name)} <em>line</em></h3>
-            </div>
-            <a class="link" href="story.html">Read their story
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          </div>
-          ${fam.generations.map((g, gi) => `
-            <section class="gen" aria-label="${esc(g.label)}">
-              <span class="gen-label">${esc(g.label)}</span>
-              <div class="gen-row">${g.units.map((u, ui) => unitHTML(u, fam, gi, ui)).join('')}</div>
-            </section>`).join('<div class="trunk" aria-hidden="true"></div>')}
-        </div>`;
-      tree.hidden = false;
-      history.replaceState(null, '', '#ancestors-' + key);
-      if (scroll) tree.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
-    };
-    pick.addEventListener('click', e => {
-      const b = e.target.closest('[data-family]'); if (b) showTree(b.dataset.family);
-    });
-    tree.addEventListener('click', e => {
-      const b = e.target.closest('[data-person]'); if (b) openPerson(b.dataset.person);
-    });
-    tree.addEventListener('keydown', e => {
-      const b = e.target.closest('[data-person]');
-      if (b && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openPerson(b.dataset.person); }
-    });
-
     // Deep links: gallery.html#ancestors or #ancestors-greggs
     const h = location.hash.slice(1);
     if (h.startsWith('ancestors')) {
       setFilter('elders');
       const key = h.split('-')[1];
-      if (key) showTree(key, false);
+      if (key) window.FamilyTree.showTree(key, false);
     }
 
     const lb = document.getElementById('lightbox');

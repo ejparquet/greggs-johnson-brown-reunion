@@ -8,13 +8,13 @@ The family reunion website: our history, photo gallery, family trees and reunion
 | --- | --- | --- |
 | Home | `index.html` | Welcome, the three family lines, timeline preview, reunion preview, gallery preview |
 | Our Story | `story.html` | Family history by era — Before the Records, 1800s, 1900–1949, 1950–1999, 2000–Today — plus a “Share a story” form |
-| Gallery | `gallery.html` | Filterable photo gallery with a full-screen viewer, and the Elders & Ancestors family trees |
+| Gallery | `gallery.html` | Filterable photo gallery with a full-screen viewer, and the Elders & Ancestors family trees (logic in `assets/family-tree.js`) |
 | Reunion & Events | `events.html` | Dates and countdown, day-by-day schedule, venue and lodging, RSVP form, past reunions |
 
 ## Editing content
 
 - **Reunion date / countdown:** change `REUNION_START` at the top of `assets/site.js`, plus the date text on the pages.
-- **Family trees:** edit `assets/ancestors.js`. Each person has `name`, `born`, `died` (leave `''` if living), optional `place` and `photo`. Put two people in the same brackets to show them as a couple.
+- **Family trees:** edit `assets/ancestors.js` (instructions at the top of the file). Each person gets a unique `id`; children list their `parents: ['id1', 'id2']`, and a marriage is a `spouse: 'id'` on either person (a list for more than one marriage). Generations, children, grandchildren and siblings are worked out automatically, and spouses can link across the Greggs, Johnson and Brown lines. Add `bio` for the detail panel and `photo` for a portrait.
 - **History entries:** in `story.html`, copy an `<div class="entry">…</div>` block inside the right era and change the year, title and text.
 - **Gallery photos:** in `gallery.html`, copy a `<button class="tile …">` block and set its `data-cat`, image and caption.
 - **Email address:** forms open an email to `reunion@example.com` — search and replace it with the real address.
